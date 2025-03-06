@@ -50,7 +50,7 @@ const Navigation = ({user}:NavigationProps) => {
           ) : (
             <div className="flex items-center space-x-5">
               <Link href="/login">ログイン</Link>
-              <Link href="/signup">サインアップ</Link>
+              <Link href="/auth/signup">サインアップ</Link>
             </div>
           )}
         </div>
