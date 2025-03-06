@@ -148,7 +148,7 @@ const Signup =()=>{
     
             <div className="text-center mt-5 space-y-2">
             <div>
-                <Link href="/login" className="text-sm text-primary font-bold">
+                <Link href="/auth/login" className="text-sm text-primary font-bold">
                     既にアカウントを持ちの方はこちら{" "}
                     <ChevronRight className="w-4 h-4 inline align-text-bottom" />
                 </Link>

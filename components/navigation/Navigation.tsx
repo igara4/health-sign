@@ -21,7 +21,7 @@ const Navigation = ({user}:NavigationProps) => {
         }
 
         await supabase.auth.signOut()
-        router.push("/login")
+        router.push("/auth/login")
         router.refresh()
 
     }
@@ -49,7 +49,7 @@ const Navigation = ({user}:NavigationProps) => {
             </div>
           ) : (
             <div className="flex items-center space-x-5">
-              <Link href="/login">ログイン</Link>
+              <Link href="/auth/login">ログイン</Link>
               <Link href="/auth/signup">サインアップ</Link>
             </div>
           )}
