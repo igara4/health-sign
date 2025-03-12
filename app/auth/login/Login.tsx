@@ -129,7 +129,7 @@ const Login =()=>{
         <div className="text-center mt-5 space-y-2">
             <div>
                 <Link
-                    href="/reset-password"
+                    href="/auth/reset-password"
                     className="text-sm text-primary font-bold"
                 >
                     パスワードをお忘れの方はこちら{" "}

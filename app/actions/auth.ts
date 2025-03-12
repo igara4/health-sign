@@ -1,6 +1,6 @@
 "use server"
 
-import { LoginSchema, SignupSchema } from "@/schemas"
+import { LoginSchema, PasswordSchema, ResetPasswordSchema, SignupSchema } from "@/schemas"
 import { createClient } from "@/utils/supabase/server"
 import { z } from "zod"
 
@@ -68,5 +68,42 @@ export const login =async(value:z.infer<typeof LoginSchema>)=>{
     }catch(err){
         console.error(err)
         return {error:"エラーが発生しました"}
+    }
+}
+
+//パスワード再設定
+export const resetPassword = async(value:z.infer<typeof ResetPasswordSchema>)=>{
+    try{
+        const supabase = await createClient()
+
+
+        const {error} = await supabase.auth.resetPasswordForEmail(value.email,{
+            redirectTo:`{process.env.NEXTPUBLIC_APP_URL}/reset-password/confirm`,
+        })
+
+        if(error){
+            return {error:error.message}
+        }
+    }catch(err){
+        console.error(err)
+        return{error:"エラーが発生しました"}
+    }
+}
+
+//パスワード設定
+export const setPassword = async(value:z.infer<typeof PasswordSchema>)=>{
+    try{
+        const supabase = await createClient()
+
+        const {error} = await supabase.auth.updateUser({
+            password:value.password
+        })
+
+        if(error){
+            return{error:error.message}
+        }
+    }catch(err){
+        console.error(err)
+        return{error:"エラーが発生しました"}
     }
 }
