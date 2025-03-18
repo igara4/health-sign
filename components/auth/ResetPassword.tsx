@@ -41,7 +41,7 @@ const ResetPassword = () => {
             }
 
             toast.success("パスワード再設定用のメールを送信しました")
-            router.push("/reset-password/success")
+            router.push("/auth/reset-password/success")
             router.refresh()
             }catch(error){
                 console.error(error)
@@ -66,7 +66,7 @@ const ResetPassword = () => {
                             <FormLabel className="font-bold">メールアドレス</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="example@fullstackchannel.com"
+                                    placeholder=""
                                     {...field}
                                     disabled={isPending}
                                 />
