@@ -35,7 +35,7 @@ const Navigation = ({user}:NavigationProps) => {
       <div className="text-sm font-bold">
           {user ? (
             <div className="flex items-center space-x-5">
-              <Link href="/conditions/new">
+              <Link href="/conditions/create">
                 <div>記録する</div>
               </Link>
 
