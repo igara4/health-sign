@@ -3,19 +3,47 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
+import { getUserQuestions, saveUserResponses } from "@/lib/api/condition"
+import { createClient } from "@/utils/supabase/client"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
-
+//仮の質問リスト
 const questions = [
     {id:1,text:"最近よく疲れたと言っていませんか？"},
     {id:2,text:"夜よく眠れていますか？"},
     {id:3,text:"悲観的になりやすいですか？"}
 ]
 
+//ユーザーが登録した質問を取得※ユーザーが登録した質問は未作成のためコメントアウト
 const createConditionPage = () => {
-    const {register,handleSubmit,watch} =useForm()
-    const onSubmit =(data:any) =>{
-        console.log("回答",data)
+    const {register,handleSubmit,reset} =useForm()
+    const [questions,setQuestions] = useState<{id:string; text:string}[]>([])
+    const supabase = createClient()
+
+    useEffect(()=>{
+        const fetchQuestions = async()=>{
+            const {data:userData} = await supabase.auth.getUser()
+            if(!userData?.user) return
+            const userQuestions = await getUserQuestions(userData.user.id)
+            setQuestions(userQuestions)
+        }
+
+        fetchQuestions()
+    },[])
+
+
+    const onSubmit = async(data:any) =>{
+        const{data:userData} = await supabase.auth.getUser()
+        if(!userData?.user) return
+
+        const success = await saveUserResponses(userData.user.id,data)
+        if(success){
+            alert("データを保存しました")
+            reset()
+        }else{
+            alert("データを保存に失敗しました")
+        }
     }
     return (
         <>
