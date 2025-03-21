@@ -25,8 +25,10 @@ export const saveUserResponses=async(userId:string,responses:Record<string,boole
     const formattedResponses = Object.entries(responses).map(([question_id,answer])=>({
         user_id:userId,
         question_id,
-        answer:answer||false
+        answer:!!answer
         }))
+        //デバッグ用
+        console.log("保存するデータ:", formattedResponses)
 
         const {error} =await supabase.from("responses").insert(formattedResponses)
         if(error){

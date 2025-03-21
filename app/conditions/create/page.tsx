@@ -57,8 +57,8 @@ const createConditionPage = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {questions.map((q)=>(
                             <div key={q.id} className="flex items-center space-x-3">
-                                <Checkbox id={`q${q.id}`} {...register(`q${q.id}`)}/>
-                                <label htmlFor={`q${q.id}`} className="text-sm">{q.text}</label>
+                                <Checkbox id={q.id} {...register(q.id)}/>
+                                <label htmlFor={q.id} className="text-sm">{q.text}</label>
                             </div>
                         ))}
                         <Button type="submit" className="w-full">記録</Button>
