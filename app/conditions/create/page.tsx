@@ -7,6 +7,7 @@ import { getUserQuestions, saveUserResponses } from "@/lib/api/condition"
 import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
 //仮の質問リスト
 const questions = [
@@ -17,6 +18,7 @@ const questions = [
 
 //ユーザーが登録した質問を取得※ユーザーが登録した質問は未作成のためコメントアウト
 const createConditionPage = () => {
+    const router =useRouter()
     const {register,handleSubmit,reset} =useForm()
     const [questions,setQuestions] = useState<{id:string; text:string}[]>([])
     const supabase = createClient()
@@ -41,6 +43,7 @@ const createConditionPage = () => {
         if(success){
             alert("データを保存しました")
             reset()
+            router.push("/")
         }else{
             alert("データを保存に失敗しました")
         }
