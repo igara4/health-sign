@@ -15,7 +15,7 @@ export default async function Home() {
 
   return (
     <div className="max-w-xl mx-auto mt-10">
-      <h2 className="text-xl font-bold text-center">体調スコアの履歴</h2>
+      <h2 className="text-xl font-bold text-center">最近の体調</h2>
 
       {/*client componentにデータを渡す*/}
       <ChartClient scores={scores}/>

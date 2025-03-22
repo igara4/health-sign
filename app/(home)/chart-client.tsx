@@ -1,7 +1,7 @@
 "use client"
 
 import {Line} from "react-chartjs-2"
-import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement,} from "chart.js"
+import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, scales,} from "chart.js"
 import { FC } from "react"
 
 ChartJS.register(LineElement,CategoryScale,LinearScale,PointElement)
@@ -11,8 +11,13 @@ type Props ={
 }
 
 const ChartClient:FC<Props> =({scores})=>{
+    const sortedScores = [...scores].sort((a,b)=>{
+        return new Date(a.date).getTime()-new Date(b.date).getTime()
+    })
+
+
     const data ={
-        labels:scores.map((s)=>s.date),
+        labels:sortedScores.map((s)=>s.date),
         datasets:[
             {
                 label:"スコア",
@@ -24,9 +29,21 @@ const ChartClient:FC<Props> =({scores})=>{
             }
         ]
     }
+
+    const options ={
+        scales:{
+            y:{
+                ticks:{
+                    stepSize:1,
+                    precision:0
+                }
+            }
+        }
+    }
+
     return(
         <div className="">
-            <Line data={data}/>
+            <Line data={data} options={options}/>
         </div>
     )
 }
