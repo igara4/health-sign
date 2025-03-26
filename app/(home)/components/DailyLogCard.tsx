@@ -4,16 +4,17 @@ import Link from "next/link";
 
 
 type Props={
-    date:string;
+    id:string;
+    datetime:string;
     signs:string[];
     score:number;
 }
 
 
-const DailyLogCard = ({date,signs,score}:Props) => {
+const DailyLogCard = ({id,datetime,signs,score}:Props) => {
     return (
         <div className="border rounded-md p-4 shadow-sm hover:shadow transition">
-            <div className="text-sm text-gray-500">{date}</div>
+            <div className="text-sm text-gray-500">{datetime}</div>
 
             <div className="mt-2 text-sm">
                 <span className="font-bold">✔️ サイン:</span>{" "}
@@ -28,7 +29,7 @@ const DailyLogCard = ({date,signs,score}:Props) => {
             </div>
 
             <div className="mt-2 text-right">
-                <Link href={`/conditions/${date}/dailyLogDetail`} className="text-blue-600 text-sm hover:underline">
+                <Link href={`/conditions/${id}/dailyLogDetail`} className="text-blue-600 text-sm hover:underline">
                     詳細を見る →
                 </Link>
             </div>

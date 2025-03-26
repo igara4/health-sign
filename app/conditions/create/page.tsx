@@ -9,14 +9,7 @@ import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 
-//仮の質問リスト
-const questions = [
-    {id:1,text:"最近よく疲れたと言っていませんか？"},
-    {id:2,text:"夜よく眠れていますか？"},
-    {id:3,text:"悲観的になりやすいですか？"}
-]
-
-//ユーザーが登録した質問を取得※ユーザーが登録した質問は未作成のためコメントアウト
+//ユーザーが登録した質問を取得
 const createConditionPage = () => {
     const router =useRouter()
     const {register,handleSubmit,reset} =useForm()
@@ -39,14 +32,25 @@ const createConditionPage = () => {
         const{data:userData} = await supabase.auth.getUser()
         if(!userData?.user) return
 
-        const success = await saveUserResponses(userData.user.id,data)
-        if(success){
-            alert("データを保存しました")
-            reset()
-            router.push("/")
-        }else{
+        const userId = userData.user.id
+        const today = new Date().toISOString().split("T")[0]
+
+        //チェックされた質問ID配列
+        const checkedIds = Object.keys(data).filter((key)=>data[key]===true)
+
+        //全質問のID(stateから取得)
+        const allIds = questions.map((q)=>q.id)
+
+        //チェックされた質問IDを取得
+        const success = await saveUserResponses(userId,data)
+        if(!success){
             alert("データを保存に失敗しました")
+            return
         }
+
+        alert("データを保存しました")
+        reset()
+        router.push("/")
     }
     return (
         <>

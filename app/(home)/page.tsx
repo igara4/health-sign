@@ -30,7 +30,13 @@ export default async function Home() {
           <p>体調記録がありません</p>
         ):(
           logs.map((log)=>(
-            <DailyLogCard key={log.date}{...log}/>
+            <DailyLogCard 
+              key={log.id}
+              id={log.id}
+              datetime={log.datetime}
+              signs={log.signs}
+              score={log.score}
+              />
           ))
         )}
       </div>
