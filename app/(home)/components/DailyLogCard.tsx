@@ -14,7 +14,7 @@ type Props={
 const DailyLogCard = ({id,datetime,signs,score}:Props) => {
     return (
         <div className="border rounded-md p-4 shadow-sm hover:shadow transition">
-            <div className="text-sm text-gray-500">{datetime}</div>
+            <div className="text-sm text-gray-500">{datetime.replace("T"," ")}</div>
 
             <div className="mt-2 text-sm">
                 <span className="font-bold">✔️ サイン:</span>{" "}

@@ -34,21 +34,29 @@ export const getUserDailyLogs =async(userId:string)=>{
             bad:-2
         }
 
-        const logs = responses
-            .filter((res)=>res.answer === true)
-            .map((res)=>{
-                const question = questions.find((q)=>q.id === res.question_id)
-                if(!question) return null
+        const grouped :Record<string,{signs:string[]; score:number}>={}
+        for(const res of responses){
+            if(!res.answer) continue
 
-                return{
-                    id:res.id,
-                    datetime:res.created_at,
-                    signs:[question.text],
-                    score:scoreMap[question.category]
-                }
-            })
-            .filter((log)=> log !== null)
+            const datetime =res.created_at.slice(0,16)
 
-        return logs
-            
+            const question = questions.find((q)=>q.id === res.question_id)
+            if(!question) continue
+
+            if(!grouped[datetime]){
+                grouped[datetime] = {signs:[],score:0}
+            }
+
+            grouped[datetime].signs.push(question.text)
+            grouped[datetime].score += scoreMap[question?.category]||0
+            }
+
+            return Object.entries(grouped)
+                .map(([datetime,{signs,score}])=>({
+                    id:datetime,
+                    datetime,
+                    signs,
+                    score,
+                    }))
+            .sort((a,b)=>new Date(b.datetime).getTime()-new Date(a.datetime).getTime())        
 }

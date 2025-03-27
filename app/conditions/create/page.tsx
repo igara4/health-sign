@@ -6,13 +6,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { getUserQuestions, saveUserResponses } from "@/lib/api/condition"
 import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 
 //ユーザーが登録した質問を取得
 const createConditionPage = () => {
     const router =useRouter()
-    const {register,handleSubmit,reset} =useForm()
+    const {control,handleSubmit,reset} =useForm()
     const [questions,setQuestions] = useState<{id:string; text:string}[]>([])
     const supabase = createClient()
 
@@ -29,6 +29,9 @@ const createConditionPage = () => {
 
 
     const onSubmit = async(data:any) =>{
+        //デバッグ用
+        console.log("📦 フォーム送信データ:", data);
+
         const{data:userData} = await supabase.auth.getUser()
         if(!userData?.user) return
 
@@ -63,10 +66,22 @@ const createConditionPage = () => {
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {questions.map((q)=>(
-                            <div key={q.id} className="flex items-center space-x-3">
-                                <Checkbox id={q.id} {...register(q.id)}/>
-                                <label htmlFor={q.id} className="text-sm">{q.text}</label>
-                            </div>
+                            <Controller
+                                key={q.id}
+                                name={q.id}
+                                control={control}
+                                defaultValue={false}
+                                render={({field})=>(
+                                <div  className="flex items-center space-x-3">
+                                    <Checkbox
+                                        id={q.id}
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                    />
+                                    <label htmlFor={q.id} className="text-sm">{q.text}</label>
+                                </div>
+                            )}
+                        />
                         ))}
                         <Button type="submit" className="w-full">記録</Button>
                     </form>
