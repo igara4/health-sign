@@ -21,7 +21,7 @@ const ChartClient:FC<Props> =({scores})=>{
         datasets:[
             {
                 label:"スコア",
-                data:scores.map((s)=>s.score),
+                data:sortedScores.map((s)=>s.score),
                 borderColor:"rgba(75,192,192,1)",
                 backgroundColor:"rgba(75,192,192,0.2)",
                 tension:0.3,
