@@ -23,13 +23,17 @@ export const getUserQuestions =async(userId:string)=>{
 export const saveUserResponses=async(userId:string,responses:Record<string,boolean>)=>{
     const supabase = await createClient()
     //チェックされた質問のみinsert
+
+    const now = new Date()
+    const jst = new Date(now.getTime()+9*60*60*1000)//保存のときにもJSTに変換
+
     const inserts = Object.entries(responses)
         .filter(([_,answer])=>answer ===true)
         .map(([question_id])=>({
             user_id:userId,
             question_id,
             answer:true,
-            created_at:new Date().toISOString()
+            created_at:jst.toISOString()
         }))
 
           // デバッグ用：実際に保存しようとしてる内容

@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server"
+import { formatToJST } from "../utils"
 
 
 export const getUserDailyLogs =async(userId:string)=>{
@@ -34,26 +35,27 @@ export const getUserDailyLogs =async(userId:string)=>{
             bad:-2
         }
 
-        const grouped :Record<string,{signs:string[]; score:number}>={}
+        const grouped :Record<string,{datetime:string,signs:string[]; score:number}>={}
         for(const res of responses){
             if(!res.answer) continue
 
-            const datetime =res.created_at.slice(0,16)
+            const groupKey = res.created_at//グルーピングに使うためUTCのまま
+            const datetime = formatToJST(res.created_at)//表示用に変換
 
             const question = questions.find((q)=>q.id === res.question_id)
             if(!question) continue
 
-            if(!grouped[datetime]){
-                grouped[datetime] = {signs:[],score:0}
+            if(!grouped[groupKey]){
+                grouped[groupKey] = {datetime,signs:[],score:0}
             }
 
-            grouped[datetime].signs.push(question.text)
-            grouped[datetime].score += scoreMap[question?.category]||0
+            grouped[groupKey].signs.push(question.text)
+            grouped[groupKey].score += scoreMap[question?.category]||0
             }
 
             return Object.entries(grouped)
-                .map(([datetime,{signs,score}])=>({
-                    id:datetime,
+                .map(([id,{datetime,signs,score}])=>({
+                    id,
                     datetime,
                     signs,
                     score,

@@ -1,7 +1,7 @@
 "use client"
 
+import { formatToJST } from "@/lib/utils";
 import Link from "next/link";
-
 
 type Props={
     id:string;
@@ -14,7 +14,7 @@ type Props={
 const DailyLogCard = ({id,datetime,signs,score}:Props) => {
     return (
         <div className="border rounded-md p-4 shadow-sm hover:shadow transition">
-            <div className="text-sm text-gray-500">{datetime.replace("T"," ")}</div>
+            <div className="text-sm text-gray-500">{formatToJST(datetime)}</div>
 
             <div className="mt-2 text-sm">
                 <span className="font-bold">✔️ サイン:</span>{" "}
