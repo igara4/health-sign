@@ -8,7 +8,7 @@ export const getUserDailyLogs =async(userId:string)=>{
     //回答一覧(responses)取得
     const {data:responses,error:resError} = await supabase
         .from("responses")
-        .select("id,question_id,answer,created_at")
+        .select("id,question_id,answer,created_at,log_id")
         .eq("user_id",userId)
         .order("created_at",{ascending:false})
 
@@ -35,18 +35,25 @@ export const getUserDailyLogs =async(userId:string)=>{
             bad:-2
         }
 
-        const grouped :Record<string,{datetime:string,signs:string[]; score:number}>={}
+        const grouped :Record<
+            string,{
+                datetime:string
+                signs:string[]; 
+                score:number
+                log_id:string
+            }
+            >={}
         for(const res of responses){
             if(!res.answer) continue
 
-            const groupKey = res.created_at//グルーピングに使うためUTCのまま
-            const datetime = formatToJST(res.created_at)//表示用に変換
+            const groupKey = res.log_id//グルーピングに使う
+            const datetime = formatToJST(res.created_at)//UTCを実時間表示用に変換
 
             const question = questions.find((q)=>q.id === res.question_id)
             if(!question) continue
 
             if(!grouped[groupKey]){
-                grouped[groupKey] = {datetime,signs:[],score:0}
+                grouped[groupKey] = {datetime,signs:[],score:0,log_id:groupKey}
             }
 
             grouped[groupKey].signs.push(question.text)
@@ -54,8 +61,8 @@ export const getUserDailyLogs =async(userId:string)=>{
             }
 
             return Object.entries(grouped)
-                .map(([id,{datetime,signs,score}])=>({
-                    id,
+                .map(([logId,{datetime,signs,score}])=>({
+                    id:logId,
                     datetime,
                     signs,
                     score,
