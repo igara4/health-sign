@@ -1,3 +1,4 @@
+import { deleteLog } from "@/app/actions/deleteLog"
 import { Button } from "@/components/ui/button"
 import { formatToJST } from "@/lib/utils"
 import { createClient } from "@/utils/supabase/server"
@@ -53,10 +54,12 @@ export default async function DailyLogDetailPage({ params }: { params: { id: str
                 <span className={score < 0 ? "text-red-600" : "text-green-600"}>
                     {score}
                 </span>
-                <Button>編集</Button>
-                <Button>削除</Button>
-
             </div>
+            <form action={deleteLog.bind(null,params.id)} className="mt-4">
+            <button type="submit" className="text-red-600 text-sm hover:underline">
+                削除
+            </button>
+            </form>
         </div>
     )
 }
