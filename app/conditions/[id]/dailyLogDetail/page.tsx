@@ -2,6 +2,7 @@ import { deleteLog } from "@/app/actions/deleteLog"
 import { Button } from "@/components/ui/button"
 import { formatToJST } from "@/lib/utils"
 import { createClient } from "@/utils/supabase/server"
+import Link from "next/link"
 
 export default async function DailyLogDetailPage({ params }: { params: { id: string } }) {
     const supabase = await createClient()
@@ -55,6 +56,12 @@ export default async function DailyLogDetailPage({ params }: { params: { id: str
                     {score}
                 </span>
             </div>
+            <Link 
+                href={`/conditions/${params.id}/edit`}
+                className="text-blue-600 text-sm hover:underline mr-4 inline-block mt-4"
+            >
+                編集    
+            </Link>
             <form action={deleteLog.bind(null,params.id)} className="mt-4">
             <button type="submit" className="text-red-600 text-sm hover:underline">
                 削除
