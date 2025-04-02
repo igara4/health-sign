@@ -1,5 +1,4 @@
 import { deleteLog } from "@/app/actions/deleteLog"
-import { Button } from "@/components/ui/button"
 import { formatToJST } from "@/lib/utils"
 import { createClient } from "@/utils/supabase/server"
 import Link from "next/link"
@@ -56,17 +55,28 @@ export default async function DailyLogDetailPage({ params }: { params: { id: str
                     {score}
                 </span>
             </div>
-            <Link 
+            <div className="flex justify-end mt-6 space-x-4">
+            <a
                 href={`/conditions/${params.id}/edit`}
-                className="text-blue-600 text-sm hover:underline mr-4 inline-block mt-4"
+                className="px-4 py-2  bg-blue-600 text-sm text-white rounded hover:bg-blue-700 transition"
             >
                 編集    
-            </Link>
-            <form action={deleteLog.bind(null,params.id)} className="mt-4">
-            <button type="submit" className="text-red-600 text-sm hover:underline">
+            </a>
+            <form action={deleteLog.bind(null,params.id)}>
+            <button 
+                type="submit" 
+                className="px-4 py-2 bg-red-600 text-sm text-white rounded hover:bg-red-700 transition">
                 削除
             </button>
             </form>
+            
+            </div>
+            <a
+                href="/"
+                className="px-4 py-2 bg-gray-300 text-sm text-gray-800 rounded hover:bg-gray-400 transition"
+            >
+                戻る
+            </a>
         </div>
     )
 }
