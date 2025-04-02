@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#アプリ概要
 
-## Getting Started
+##アプリ名
+Health 　 Sign
 
-First, run the development server:
+##概要　説明
+このアプリはユーザーが自身の体調のサインを記録、可視化することで自身のストレスや疲労等の状態に早く気づくことで対処につなげるためのアプリです。また、あとから記録を振り返ることでストレス要因の分析やストレス対処を考えるきっかけにできるアプリです。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##背景
+障害福祉の仕事に従事しておりますが、その中で自身の体調などの状態に気づけず体調を崩してしまう精神障害の方が多くいらっしゃいました。また、思い出したときに気軽に記録できるツールが欲しいと感じておりました。
+また、障害の有無関係なく調子が悪くなる前のサインに気づくことの難しさは私自身も感じておりました。
+以上の理由から手軽にいつでも体調記録のできる、誰しも使えるようなアプリの開発に至りました。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##主な機能
+✅ 日々の体調を記録
+✅ 日々の体調サインの記録をスコア化しグラフとして可視化
+✅ プロフィール設定
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##今後の実装予定機能
+・自身の体調サイン登録機能
+・日記登録機能
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+##使い方
 
-## Learn More
+##🛠 使用技術
 
-To learn more about Next.js, take a look at the following resources:
+### フロントエンド
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+- ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+- ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+- ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### バックエンド
 
-## Deploy on Vercel
+- ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 認証
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ![Auth.js](https://img.shields.io/badge/Auth.js-3ECF8E?style=for-the-badge&logo=auth0&logoColor=white)
+
+### ツール
+
+- ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+- ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+##アプリ表示側イメージ
+
+##デモ　リンク　環境構築
