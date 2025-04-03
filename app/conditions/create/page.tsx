@@ -54,7 +54,6 @@ const createConditionPage = () => {
     }
     return (
         <>
-            <div>createConditionPage</div>
             <Card className="max-w-md mx-auto mt-10">
                 <CardHeader>
                     <CardTitle>体調をチェック</CardTitle>
