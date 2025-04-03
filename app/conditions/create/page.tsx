@@ -33,10 +33,6 @@ const createConditionPage = () => {
         if(!userData?.user) return
 
         const userId = userData.user.id
-        const today = new Date().toISOString().split("T")[0]
-
-        //チェックされた質問ID配列
-        const checkedIds = Object.keys(data).filter((key)=>data[key]===true)
 
         //全質問のID(stateから取得)
         const allIds = questions.map((q)=>q.id)
