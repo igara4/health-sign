@@ -29,9 +29,6 @@ const createConditionPage = () => {
 
 
     const onSubmit = async(data:any) =>{
-        //デバッグ用
-        console.log("📦 フォーム送信データ:", data);
-
         const{data:userData} = await supabase.auth.getUser()
         if(!userData?.user) return
 

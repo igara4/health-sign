@@ -39,9 +39,6 @@ export const saveUserResponses=async(userId:string,responses:Record<string,boole
             created_at:jst.toISOString()
         }))
 
-          // デバッグ用：実際に保存しようとしてる内容
-            console.log("🟡 保存するデータ:", inserts)
-
         if(inserts.length === 0){
             console.warn("チェックされたサインがありません")
             return false

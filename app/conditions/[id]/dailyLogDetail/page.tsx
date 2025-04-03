@@ -10,9 +10,6 @@ export default async function DailyLogDetailPage({ params }: { params: { id: str
         .select("question_id,answer,created_at,question:question_id(text,category)")
         .eq("log_id", params.id) as {data:any[]}
 
-        console.log("🔍 responses:", responses)
-
-
         const scoreMap: Record<string, number> = {
             good: 2,
             warning: -1,
