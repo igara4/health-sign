@@ -8,13 +8,7 @@ import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
-
-type Question ={
-    id:string;
-    text:string;
-    category:"good"|"warning"|"bad";
-}
-
+import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } from "@/lib/utils/groupQuestions"
 
 //ユーザーが登録した質問を取得
 const createConditionPage = () => {
@@ -53,20 +47,7 @@ const createConditionPage = () => {
         router.push("/")
     }
 
-    //カテゴリごとに質問をグループ化
-    const groupedQuestions =questions.reduce((acc,q)=>{
-        if(!acc[q.category]) acc[q.category] =[]
-        acc[q.category].push(q)
-        return acc
-    },{} as Record<string,Question[]>)
-
-    //表示順
-    const categoryOrder =["good","warning","bad"]
-    const categoryLabel :Record<string,string>={
-        good:"良好サイン",
-        warning:"注意サイン",
-        bad:"悪化サイン"
-    }
+    const groupedQuestions = groupedQuestionsByCategory(questions)
 
     return (
         <>
