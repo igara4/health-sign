@@ -1,9 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { getUserQuestions } from "@/lib/api/condition"
+import { categoryLabel, categoryOrder, groupedQuestionsByCategory,Question } from "@/lib/utils/groupQuestions"
 import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -16,7 +17,7 @@ type Props ={
 const EditLogPageClient = ({logId}:Props) => {
     const router = useRouter()
     const {control,handleSubmit,reset} = useForm()
-    const [questions,setQuestions] = useState<{id:string; text:string}[]>([])
+    const [questions,setQuestions] = useState<Question[]>([])
     const [initialAnswers,setInitialAnswers] = useState<Record<string,boolean>>({})
     const supabase = createClient()
 
@@ -81,34 +82,45 @@ const EditLogPageClient = ({logId}:Props) => {
             router.push(`/conditions/${logId}/dailyLogDetail`)
     }
 
+        const groupedQuestions = groupedQuestionsByCategory(questions)
+    
+
 
     return (
         <Card>
         <CardHeader>
-            <CardTitle>記録を編集</CardTitle>
+            <CardTitle className="text-xl">記録を編集</CardTitle>
+            <CardDescription>当てはまるサインにチェックをしてください</CardDescription>
         </CardHeader>
         <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {questions.map((q)=>(
-                <Controller
-                    key={q.id}
-                    name={q.id}
-                    control={control}
-                    defaultValue={initialAnswers[q.id]||false}
-                    render={({field})=>(
-                        <div>
-                            <Checkbox
-                                id={q.id}
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                            />
-                            <label htmlFor={q.id} className="text-sm">{q.text}</label>
+                {categoryOrder.map((category)=>(
+                    <div key={category}>
+                        <h3 className="text-md font-bold mb-2">{categoryLabel[category]}</h3>
+                        <div className="space-y-2">
+                            {groupedQuestions[category]?.map((q)=>(
+                                <Controller
+                                    key={q.id}
+                                    name={q.id}
+                                    control={control}
+                                    defaultValue={initialAnswers[q.id] ||false}
+                                    render={({field})=>(
+                                    <div  className="flex items-center space-x-3">
+                                        <Checkbox
+                                            id={q.id}
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                        <label htmlFor={q.id} className="text-sm">{q.text}</label>
+                                    </div>
+                                    )}
+                                />
+                            ))}
                         </div>
-                    )}
-                />
-            ))}
-            <Button type="submit" className="w-full">更新する</Button>
-            </form>
+                    </div>
+                ))}
+                <Button type="submit" className="w-full">更新する</Button>
+            </form> 
         </CardContent>
     </Card>
     )
