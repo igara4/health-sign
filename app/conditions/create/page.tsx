@@ -9,11 +9,18 @@ import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 
+type Question ={
+    id:string;
+    text:string;
+    category:"good"|"warning"|"bad";
+}
+
+
 //ユーザーが登録した質問を取得
 const createConditionPage = () => {
     const router =useRouter()
     const {control,handleSubmit,reset} =useForm()
-    const [questions,setQuestions] = useState<{id:string; text:string}[]>([])
+    const [questions,setQuestions] = useState<Question[]>([])
     const supabase = createClient()
 
     useEffect(()=>{
@@ -34,9 +41,6 @@ const createConditionPage = () => {
 
         const userId = userData.user.id
 
-        //全質問のID(stateから取得)
-        const allIds = questions.map((q)=>q.id)
-
         //チェックされた質問IDを取得
         const success = await saveUserResponses(userId,data)
         if(!success){
@@ -48,32 +52,55 @@ const createConditionPage = () => {
         reset()
         router.push("/")
     }
+
+    //カテゴリごとに質問をグループ化
+    const groupedQuestions =questions.reduce((acc,q)=>{
+        if(!acc[q.category]) acc[q.category] =[]
+        acc[q.category].push(q)
+        return acc
+    },{} as Record<string,Question[]>)
+
+    //表示順
+    const categoryOrder =["good","warning","bad"]
+    const categoryLabel :Record<string,string>={
+        good:"良好サイン",
+        warning:"注意サイン",
+        bad:"悪化サイン"
+    }
+
     return (
         <>
             <Card className="max-w-md mx-auto mt-10">
                 <CardHeader>
-                    <CardTitle>体調をチェック</CardTitle>
+                    <CardTitle className="text-xl">体調をチェック</CardTitle>
                     <CardDescription>当てはまるサインにチェックをしてください</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                        {questions.map((q)=>(
-                            <Controller
-                                key={q.id}
-                                name={q.id}
-                                control={control}
-                                defaultValue={false}
-                                render={({field})=>(
-                                <div  className="flex items-center space-x-3">
-                                    <Checkbox
-                                        id={q.id}
-                                        checked={field.value}
-                                        onCheckedChange={field.onChange}
-                                    />
-                                    <label htmlFor={q.id} className="text-sm">{q.text}</label>
+                        {categoryOrder.map((category)=>(
+                            <div key={category}>
+                                <h3 className="text-md font-bold mb-2">{categoryLabel[category]}</h3>
+                                <div className="space-y-2">
+                                    {groupedQuestions[category]?.map((q)=>(
+                                        <Controller
+                                            key={q.id}
+                                            name={q.id}
+                                            control={control}
+                                            defaultValue={false}
+                                            render={({field})=>(
+                                            <div  className="flex items-center space-x-3">
+                                                <Checkbox
+                                                    id={q.id}
+                                                    checked={field.value}
+                                                    onCheckedChange={field.onChange}
+                                                />
+                                                <label htmlFor={q.id} className="text-sm">{q.text}</label>
+                                            </div>
+                                            )}
+                                        />
+                                    ))}
                                 </div>
-                            )}
-                        />
+                            </div>
                         ))}
                         <Button type="submit" className="w-full">記録</Button>
                     </form>

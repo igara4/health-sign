@@ -9,7 +9,7 @@ export const getUserQuestions =async(userId:string)=>{
     const supabase = await createClient()
     const {data,error} = await supabase
         .from("questions")
-        .select("id,text")
+        .select("id,text,category")
         .eq("user_id",userId)
     
         if(error){
