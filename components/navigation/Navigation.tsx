@@ -39,8 +39,8 @@ const Navigation = ({user}:NavigationProps) => {
                   <div>記録する</div>
                 </Link>
 
-                <Link href="/settings/profile">
-                  <div>設定</div>
+                <Link href="/conditions/signs">
+                  <div>サインを編集</div>
                 </Link>
 
                 <div className="cursor-pointer" onClick={handleLogout}>
