@@ -37,6 +37,7 @@ export const saveUserSelectedSigns = async(userId:string,selectedQuestionIds:str
     const {error} = await supabase
         .from("user_selected_questions")
         .insert(inserts)
+    return !error
 }
 
 
