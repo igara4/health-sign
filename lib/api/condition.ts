@@ -19,6 +19,27 @@ export const getUserQuestions =async(userId:string)=>{
         return data || []
 }
 
+//サインを選んで保存する
+export const saveUserSelectedSigns = async(userId:string,selectedQuestionIds:string[])=>{
+    const supabase = await createClient()
+    //既存の質問をいったん削除(上書き保存のイメージ)
+    await supabase
+        .from("user_selected_questions")
+        .delete()
+        .eq("user_id",userId)
+
+    
+    const inserts = selectedQuestionIds.map(qid =>({
+        user_id:userId,
+        question_id:qid,
+    }))
+
+    const {error} = await supabase
+        .from("user_selected_questions")
+        .insert(inserts)
+}
+
+
 //ユーザーの回答を保存する
 export const saveUserResponses=async(userId:string,responses:Record<string,boolean>)=>{
     const supabase = await createClient()
