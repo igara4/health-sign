@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { getUserQuestions, saveUserResponses } from "@/lib/api/condition"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } from "@/lib/utils/groupQuestions"
 import { createClient } from "@/utils/supabase/client"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 
