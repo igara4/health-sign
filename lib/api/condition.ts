@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server"
 
 
 //全ユーザーが使用できる質問を取得(サイン編集画面用)
-export const getAllQuestions =async(userId:string)=>{
+export const getAllQuestions =async()=>{
     const supabase = await createClient()
     const {data,error} = await supabase
         .from("questions")
