@@ -4,19 +4,36 @@ import {v4 as uuidv4} from "uuid"
 import { createClient } from "@/utils/supabase/server"
 
 
-//ユーザーの質問を取得する
-export const getUserQuestions =async(userId:string)=>{
+//全ユーザーが使用できる質問を取得(サイン編集画面用)
+export const getAllQuestions =async(userId:string)=>{
     const supabase = await createClient()
     const {data,error} = await supabase
         .from("questions")
         .select("id,text,category")
-        .eq("user_id",userId)
     
         if(error){
             console.error("質問の取得に失敗しました",error.message)
             return []
         }
         return data || []
+}
+
+//ユーザーが選んだ質問だけ取得(記録画面用)
+export const getUserSelectedQuestions =async(userId:string)=>{
+    const supabase = await createClient()
+
+    const {data,error} = await supabase
+        .from("user_selected_questions")
+        .select("question:questions(id,text,category)")
+        .eq("user_id",userId)
+
+    if(error){
+        console.error("選択済みサインの取得に失敗しました",error.message)
+        return[]
+    }
+
+    //questionsオブジェクトの中身を取り出す
+    return data.map((row:any)=>row.question)
 }
 
 //サインを選んで保存する

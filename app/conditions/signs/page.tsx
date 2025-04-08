@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { getUserQuestions, saveUserResponses } from "@/lib/api/condition"
+import { getAllQuestions, saveUserResponses, saveUserSelectedSigns } from "@/lib/api/condition"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } from "@/lib/utils/groupQuestions"
 import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
@@ -15,14 +15,18 @@ const editSignsPage = () => {
     const router = useRouter()
     const {control,handleSubmit,reset} = useForm()
     const [questions,setQuestions] =useState<Question[]>([])
+    const [selectedIds,setSelectedIds] = useState<string[]>([])
     const supabase = createClient()
 
     useEffect(()=>{
         const fetchQuestions = async()=>{
             const {data:userData} = await supabase.auth.getUser()
             if(!userData?.user) return
-            const userQuestions = await getUserQuestions(userData.user.id)
+            const userQuestions = await getAllQuestions()
+            const selectedQuestions = await getUserSelectedQuestions(userData.user.id)
+            const selectedIds =selectedQuestions.map(q => q.id)
             setQuestions(userQuestions)
+            setSelectedIds(selectedIds)
         }
         
         fetchQuestions()
@@ -34,14 +38,17 @@ const editSignsPage = () => {
 
         const userId = userData.user.id
 
+        const selectedIds = Object.entries(data)
+            .filter(([_,value])=>value === true)
+            .map(([id,_])=>id)
 
-        const success = await saveUserResponses(userId,data)
+        const success = await saveUserSelectedSigns(userId,selectedIds)
         if(!success){
-            alert("")
+            alert("データの保存に失敗しました")
             return
         }
 
-        alert("")
+        alert("データを保存しました")
         reset()
         router.push("/")
     }
@@ -54,7 +61,7 @@ const editSignsPage = () => {
         <>
             <Card className="max-w-md mx-auto mt-10">
                 <CardHeader>
-                    <CardTitle className="text-xl">体調をチェック</CardTitle>
+                    <CardTitle className="text-xl">体調サインを編集</CardTitle>
                     <CardDescription>当てはまるサインにチェックをしてください</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -84,7 +91,7 @@ const editSignsPage = () => {
                                 </div>
                             </div>
                         ))}
-                        <Button type="submit" className="w-full">記録</Button>
+                        <Button type="submit" className="w-full">登録</Button>
                     </form>
                 </CardContent>
             </Card>

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { getUserQuestions } from "@/lib/api/condition"
+import { getAllQuestions } from "@/lib/api/condition"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory,Question } from "@/lib/utils/groupQuestions"
 import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
@@ -28,7 +28,7 @@ const EditLogPageClient = ({logId}:Props) => {
         if(!userData?.user) return
 
         const userId = userData.user.id
-        const qRes = await getUserQuestions(userId)
+        const qRes = await getAllQuestions(userId)
         setQuestions(qRes)
 
         const {data:responses} = await supabase
