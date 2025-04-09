@@ -15,7 +15,7 @@ const editSignsPage = () => {
     const router = useRouter()
     const {control,handleSubmit,reset} = useForm()
     const [questions,setQuestions] =useState<Question[]>([])
-    const [selectedIds,setSelectedIds] = useState<string[]>([])
+    const [initialSelectedIds,setInitialSelectedIds] = useState<string[]>([])
     const supabase = createClient()
 
     useEffect(()=>{
@@ -26,7 +26,7 @@ const editSignsPage = () => {
             const selectedQuestions = await getUserSelectedQuestions(userData.user.id)
             const selectedIds =selectedQuestions.map(q => q.id)
             setQuestions(userQuestions)
-            setSelectedIds(selectedIds)
+            setInitialSelectedIds(selectedIds)
         }
         
         fetchQuestions()
@@ -38,11 +38,11 @@ const editSignsPage = () => {
 
         const userId = userData.user.id
 
-        const selectedIds = Object.entries(data)
+        const newSelectedIds = Object.entries(data)
             .filter(([_,value])=>value === true)
             .map(([id,_])=>id)
 
-        const success = await saveUserSelectedSigns(userId,selectedIds)
+        const success = await saveUserSelectedSigns(userId,newSelectedIds)
         if(!success){
             alert("データの保存に失敗しました")
             return
@@ -75,7 +75,7 @@ const editSignsPage = () => {
                                             key={q.id}
                                             name={q.id}
                                             control={control}
-                                            defaultValue={false}
+                                            defaultValue={initialSelectedIds.includes(q.id)}
                                             render={({field})=>(
                                             <div  className="flex items-center space-x-3">
                                                 <Checkbox

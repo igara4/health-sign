@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { getAllQuestions, getUserSelectedQuestions } from "@/lib/api/condition"
+import { getUserSelectedQuestions } from "@/lib/api/condition"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory,Question } from "@/lib/utils/groupQuestions"
 import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
