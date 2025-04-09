@@ -16,8 +16,6 @@ export const getUserDailyLogs =async(userId:string)=>{
         console.error("回答取得エラー",resError?.message)
         return []
     }
-    console.log("responsesの中身", responses)
-
     //質問一覧(questions)取得
     const{data:questions,error:qError} = await supabase
         .from("questions")
