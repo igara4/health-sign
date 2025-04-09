@@ -21,7 +21,7 @@ const createConditionPage = () => {
         const fetchQuestions = async()=>{
             const {data:userData} = await supabase.auth.getUser()
             if(!userData?.user) return
-            const userQuestions = await getAllQuestions(userData.user.id)
+            const userQuestions = await getAllQuestions()
             setQuestions(userQuestions)
         }
 

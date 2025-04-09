@@ -28,7 +28,7 @@ const EditLogPageClient = ({logId}:Props) => {
         if(!userData?.user) return
 
         const userId = userData.user.id
-        const qRes = await getAllQuestions(userId)
+        const qRes = await getAllQuestions()
         setQuestions(qRes)
 
         const {data:responses} = await supabase
