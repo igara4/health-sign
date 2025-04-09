@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { getAllQuestions, saveUserResponses } from "@/lib/api/condition"
+import { getUserSelectedQuestions, saveUserResponses } from "@/lib/api/condition"
 import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -21,7 +21,7 @@ const createConditionPage = () => {
         const fetchQuestions = async()=>{
             const {data:userData} = await supabase.auth.getUser()
             if(!userData?.user) return
-            const userQuestions = await getAllQuestions()
+            const userQuestions = await getUserSelectedQuestions(userData.user.id)
             setQuestions(userQuestions)
         }
 
