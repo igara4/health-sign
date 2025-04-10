@@ -67,3 +67,20 @@ export const getUserDailyLogs =async(userId:string)=>{
                     }))
             .sort((a,b)=>new Date(b.datetime).getTime()-new Date(a.datetime).getTime())        
 }
+
+export const insertNote = async(userId:string,note:string)=>{
+    const supabase = await createClient()
+
+    const {data,error} = await supabase
+        .from("logs")
+        .insert([{user_id:userId,note}])
+        .select("id")
+        .single()
+    
+    if(error){
+        console.error("ノート作成失敗",error.message)
+        return null
+    }
+
+    return data.id
+}
