@@ -9,11 +9,12 @@ import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } from "@/lib/utils/groupQuestions"
+import { insertNote } from "@/lib/api/logs"
 
 //ユーザーが登録した質問を取得
 const createConditionPage = () => {
     const router =useRouter()
-    const {control,handleSubmit,reset} =useForm()
+    const {control,handleSubmit,reset,register} =useForm()
     const [questions,setQuestions] = useState<Question[]>([])
     const supabase = createClient()
 
@@ -34,9 +35,25 @@ const createConditionPage = () => {
         if(!userData?.user) return
 
         const userId = userData.user.id
+        const note = data.note
+
+        const logId = await insertNote(userId,note)
+        //デバッグ用
+        console.log("🧪 typeof logId:", typeof logId, "logId:", logId);
+        if(!logId){
+            alert("ノートの保存に失敗しました")
+            return
+        }
+
+        //  note以外の回答データをresponsesに保存
+        const answers ={...data}
+        delete answers.note
+
+        //デバッグ用
+        console.log("🧪 answers before sending:", answers);
 
         //チェックされた質問IDを取得
-        const success = await saveUserResponses(userId,data)
+        const success = await saveUserResponses(userId,logId,answers)
         if(!success){
             alert("データを保存に失敗しました")
             return
@@ -83,6 +100,12 @@ const createConditionPage = () => {
                                 </div>
                             </div>
                         ))}
+                        <textarea
+                            {...register("note")}
+                            className="w-full border rounded p-2"
+                            rows={4}
+                            placeholder="今日の出来事や体調について書いてください"
+                        />
                         <Button type="submit" className="w-full">記録</Button>
                     </form>
                 </CardContent>

@@ -22,10 +22,20 @@ export const getUserDailyLogs =async(userId:string)=>{
         .select("id,text,category")
         .eq("user_id",userId)
 
-        if(qError||!questions){
-            console.error("質問取得エラー",qError?.message)
-            return[]
-        }
+    if(qError||!questions){
+        console.error("質問取得エラー",qError?.message)
+        return[]
+    }
+
+    const {data:logs,error:logError} = await supabase
+        .from("logs")
+        .select("id,note")
+        .eq("user_id",userId)
+
+    if(logError||!logs){
+        console.error("ノート取得エラー",logError?.message)
+    }
+
         //スコア定義※getDailyScoreにもあるからリファクタしたい
         const scoreMap:Record<string,number>={
             good:2,
@@ -58,22 +68,30 @@ export const getUserDailyLogs =async(userId:string)=>{
             grouped[groupKey].score += scoreMap[question?.category]||0
             }
 
-            return Object.entries(grouped)
-                .map(([logId,{datetime,signs,score}])=>({
-                    id:logId,
-                    datetime,
-                    signs,
-                    score,
-                    }))
-            .sort((a,b)=>new Date(b.datetime).getTime()-new Date(a.datetime).getTime())        
+            const result = Object.entries(grouped)
+                .map(([logId,{datetime,signs,score}])=>{
+                    const note = logs?.find((log)=>log.id === logId)?.note ?? ""
+                    return{
+                        id:logId,
+                        datetime,
+                        signs,
+                        score,
+                        note,
+                    }
+                    })
+                .sort((a,b)=>new Date(b.datetime).getTime()-new Date(a.datetime).getTime())
+                
+            return structuredClone(result)
 }
 
 export const insertNote = async(userId:string,note:string)=>{
     const supabase = await createClient()
 
+    const safeNote = typeof note === "string" ? note : String(note ?? "")
+
     const {data,error} = await supabase
         .from("logs")
-        .insert([{user_id:userId,note}])
+        .insert([{user_id:userId,note:safeNote}])
         .select("id")
         .single()
     
@@ -82,5 +100,5 @@ export const insertNote = async(userId:string,note:string)=>{
         return null
     }
 
-    return data.id
+    return typeof data?.id === "string"? data.id : String(data?.id)
 }

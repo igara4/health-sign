@@ -1,6 +1,5 @@
 "use server"
 
-import {v4 as uuidv4} from "uuid"
 import { createClient } from "@/utils/supabase/server"
 
 
@@ -59,11 +58,13 @@ export const saveUserSelectedSigns = async(userId:string,selectedQuestionIds:str
 
 
 //ユーザーの回答を保存する
-export const saveUserResponses=async(userId:string,responses:Record<string,boolean>)=>{
+export const saveUserResponses=async(
+    userId:string,
+    logId:string,
+    responses:Record<string,boolean>
+)=>{
     const supabase = await createClient()
     //チェックされた質問のみinsert
-
-    const logId = uuidv4()//回答事(サインまとめて)に毎回ユニークログIDを生成
 
     const now = new Date()
     const jst = new Date(now.getTime()+9*60*60*1000)//保存のときにもJSTに変換
