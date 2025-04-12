@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } from "@/lib/utils/groupQuestions"
-import { insertNote } from "@/lib/api/logs"
+import { insertNote } from "@/lib/api/insertNoteClient"
 
 //ユーザーが登録した質問を取得
 const createConditionPage = () => {
