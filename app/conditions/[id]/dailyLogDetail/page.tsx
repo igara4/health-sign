@@ -1,10 +1,17 @@
 import { deleteLog } from "@/app/actions/deleteLog"
 import { formatToJST } from "@/lib/utils"
 import { createClient } from "@/utils/supabase/server"
-import Link from "next/link"
 
+//paramsはリファクタ予定
 export default async function DailyLogDetailPage({ params }: { params: { id: string } }) {
     const supabase = await createClient()
+
+    const {data:logData} = await supabase
+        .from("logs")
+        .select("note")
+        .eq("id",params.id)
+        .single()
+        
     const { data: responses } = await supabase
         .from("responses")
         .select("question_id,answer,created_at,question:question_id(text,category)")
@@ -51,6 +58,12 @@ export default async function DailyLogDetailPage({ params }: { params: { id: str
                 <span className={score < 0 ? "text-red-600" : "text-green-600"}>
                     {score}
                 </span>
+            </div>
+            <div className="mt-4 text-sm">
+                <span className="font-bold">📒 ノート:</span>
+                <div className="ml-5">
+                    {logData?.note || "ノートはありません"}
+                </div>
             </div>
             <div className="flex justify-end mt-6 space-x-4">
             <a
