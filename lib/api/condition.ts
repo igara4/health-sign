@@ -31,14 +31,13 @@ export const getUserSelectedQuestions =async(userId:string)=>{
         return[]
     }
 
-    //questionsオブジェクトの中身を取り出す
     return data.map((row:any)=>row.question)
 }
 
 //サインを選んで保存する
 export const saveUserSelectedSigns = async(userId:string,selectedQuestionIds:string[])=>{
     const supabase = await createClient()
-    //既存の質問をいったん削除(上書き保存のイメージ)
+    //既存の質問をいったん削除
     await supabase
         .from("user_selected_questions")
         .delete()
@@ -64,10 +63,8 @@ export const saveUserResponses=async(
     responses:Record<string,boolean>
 )=>{
     const supabase = await createClient()
-    //チェックされた質問のみinsert
-
     const now = new Date()
-    const jst = new Date(now.getTime()+9*60*60*1000)//保存のときにもJSTに変換
+    const jst = new Date(now.getTime()+9*60*60*1000)
 
     const inserts = Object.entries(responses)
         .filter(([_,answer])=>answer ===true)
