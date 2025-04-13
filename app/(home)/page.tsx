@@ -36,6 +36,7 @@ export default async function Home() {
               datetime={log.datetime}
               signs={log.signs}
               score={log.score}
+              note={log.note}
               />
           ))
         )}

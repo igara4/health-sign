@@ -8,10 +8,11 @@ type Props={
     datetime:string;
     signs:string[];
     score:number;
+    note:string;
 }
 
 
-const DailyLogCard = ({id,datetime,signs,score}:Props) => {
+const DailyLogCard = ({id,datetime,signs,score,note}:Props) => {
     return (
         <div className="border rounded-md p-4 shadow-sm hover:shadow transition">
             <div className="text-sm text-gray-500">{formatToJST(datetime)}</div>
@@ -26,6 +27,10 @@ const DailyLogCard = ({id,datetime,signs,score}:Props) => {
                 <span className={score < 0 ? "text-red-600" : "text-green-600"}>
                     {score}
                 </span>
+            <div className="mt-1 text-sm">
+                <span className="font-bold">📒 ノート:</span>{" "}
+                {note.length > 0 ? note : ""}
+            </div>
             </div>
 
             <div className="mt-2 text-right">
