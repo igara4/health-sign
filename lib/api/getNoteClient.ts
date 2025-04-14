@@ -8,7 +8,8 @@ export const getNoteByLogId = async(userId:string)=>{
         .from("logs")
         .select("note")
         .eq("user_id",userId)
-        .single()
+        .limit(1)
+        .maybeSingle()
 
     if(error){
         console.error("ノートの取得に失敗しました",error.message)

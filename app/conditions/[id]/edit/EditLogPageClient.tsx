@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { getUserSelectedQuestions } from "@/lib/api/condition"
+import { getNoteByLogId } from "@/lib/api/getNoteClient"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory,Question } from "@/lib/utils/groupQuestions"
 import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
@@ -19,6 +20,7 @@ const EditLogPageClient = ({logId}:Props) => {
     const {control,handleSubmit,reset} = useForm()
     const [questions,setQuestions] = useState<Question[]>([])
     const [initialAnswers,setInitialAnswers] = useState<Record<string,boolean>>({})
+    const [note,setNote] = useState("")
     const supabase = createClient()
 
   //質問&過去回答を取得
@@ -30,7 +32,7 @@ const EditLogPageClient = ({logId}:Props) => {
         const userId = userData.user.id
         const qRes = await getUserSelectedQuestions(userId)
         setQuestions(qRes)
-
+        
         const {data:responses} = await supabase
             .from("responses")
             .select("question_id,answer")
@@ -43,7 +45,11 @@ const EditLogPageClient = ({logId}:Props) => {
 
         setInitialAnswers(initialData)
         reset(initialData)
+
+        const fetchedNote = await getNoteByLogId(userId)
+        setNote(fetchedNote)
         }
+
 
         fetchData()
     },[logId,reset,supabase])
@@ -119,6 +125,19 @@ const EditLogPageClient = ({logId}:Props) => {
                         </div>
                     </div>
                 ))}
+                <div>
+                    <label htmlFor="note" className="block text-sm font-medium text-gray-700">ノート</label>
+                    <textarea
+                        id="note"
+                        name="note"
+                        className="mt-1 w-full p-2 border rounded border-gray-300"
+                        rows={4}
+                        value={note}
+                        placeholder="今日の出来事や体調について書いてください"
+                        onChange={(e)=>setNote(e.target.value)}
+                    />
+                </div>
+                
                 <Button type="submit" className="w-full">更新する</Button>
             </form> 
         </CardContent>
