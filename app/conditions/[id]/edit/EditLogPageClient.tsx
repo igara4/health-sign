@@ -62,10 +62,10 @@ const EditLogPageClient = ({logId}:Props) => {
         const now = new Date()
         const jst = new Date(now.getTime()+9*60*60*1000)
 
-        //一旦元のresponsesを全削除？
+        //元のresponsesを削除
         await supabase.from("responses").delete().eq("log_id",logId)
 
-        //新しい内容をinsert
+        //チェックされた回答をinsert
         const inserts = Object.entries(data)
         .filter(([_,answer])=> answer === true)
         .map(([question_id])=>({
@@ -84,8 +84,20 @@ const EditLogPageClient = ({logId}:Props) => {
                 }
             }
 
-            alert("更新しました")
-            router.push(`/conditions/${logId}/dailyLogDetail`)
+
+        const {error:noteError} = await supabase
+            .from("logs")
+            .update({note})
+            .eq("id",logId)
+        
+        if(noteError){
+            alert("ノートの更新に失敗しました")
+            console.error("ノート更新エラー",noteError.message)
+            return
+        }
+
+        alert("更新しました")
+        router.push(`/conditions/${logId}/dailyLogDetail`)
     }
 
         const groupedQuestions = groupedQuestionsByCategory(questions)
