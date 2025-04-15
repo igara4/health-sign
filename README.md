@@ -22,10 +22,13 @@
 
 ✅ 認証機能
 ![alt text](image-2.png)
+
 ✅ 日々の体調を記録
 ![alt text](image-1.png)
+
 ✅ 自身にあった体調のサインにカスタマイズ
-![alt text](image.png)
+![alt text](image-3.png)
+
 ✅ 日々の体調サインの記録をスコア化しグラフとして可視化  
 ![alt text](HOME.png)
 
