@@ -1,3 +1,4 @@
+"use client"
 import { PasswordSchema } from "@/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
