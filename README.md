@@ -20,8 +20,12 @@
 
 ## 主な機能
 
-✅ 新規登録、ログイン
-✅ 日々の体調を記録  
+✅ 認証機能
+![alt text](image-2.png)
+✅ 日々の体調を記録
+![alt text](image-1.png)
+✅ 自身にあった体調のサインにカスタマイズ
+![alt text](image.png)
 ✅ 日々の体調サインの記録をスコア化しグラフとして可視化  
 ![alt text](HOME.png)
 
@@ -29,8 +33,6 @@
 
 - 自身の体調サイン登録機能
 - 日記登録機能
-
-## 使い方
 
 ## 🛠 使用技術
 
@@ -54,7 +56,3 @@
 
 - ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 - ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-
-##アプリ表示側イメージ
-
-##デモ　リンク
