@@ -1,7 +1,12 @@
-import EditLogPageClient from "./EditLogPageClient"
+  import EditLogPageClient from "./EditLogPageClient"
 
-const EditPage = ({params}:{params:{id:string}}) => {
-  return <EditLogPageClient logId={params.id}/>
-}
+  type PageProps = {
+    params : Promise<{id:string}>
+  }
 
-export default EditPage
+  const EditPage = async({params}:PageProps) => {
+    const {id} = await params
+    return <EditLogPageClient logId={id}/>
+  }
+
+  export default EditPage

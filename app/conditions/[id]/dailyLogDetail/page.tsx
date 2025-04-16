@@ -2,20 +2,25 @@ import { deleteLog } from "@/app/actions/deleteLog"
 import { formatToJST } from "@/lib/utils"
 import { createClient } from "@/utils/supabase/server"
 
-//paramsはリファクタ予定
-export default async function DailyLogDetailPage({ params }: { params: { id: string } }) {
+type PageProps ={
+    params:Promise<{id:string}>
+}
+
+
+export default async function DailyLogDetailPage({ params }: PageProps) {
+    const{id} = await params
     const supabase = await createClient()
 
     const {data:logData} = await supabase
         .from("logs")
         .select("note")
-        .eq("id",params.id)
+        .eq("id",id)
         .single()
         
     const { data: responses } = await supabase
         .from("responses")
         .select("question_id,answer,created_at,question:question_id(text,category)")
-        .eq("log_id", params.id) as {data:any[]}
+        .eq("log_id", id) as {data:any[]}
 
         const scoreMap: Record<string, number> = {
             good: 2,
@@ -67,12 +72,12 @@ export default async function DailyLogDetailPage({ params }: { params: { id: str
             </div>
             <div className="flex justify-end mt-6 space-x-4">
             <a
-                href={`/conditions/${params.id}/edit`}
+                href={`/conditions/${id}/edit`}
                 className="px-4 py-2  bg-blue-600 text-sm text-white rounded hover:bg-blue-700 transition"
             >
                 編集    
             </a>
-            <form action={deleteLog.bind(null,params.id)}>
+            <form action={deleteLog.bind(null,id)}>
             <button 
                 type="submit" 
                 className="px-4 py-2 bg-red-600 text-sm text-white rounded hover:bg-red-700 transition">
