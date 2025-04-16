@@ -12,7 +12,7 @@ import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } fr
 import { insertNote } from "@/lib/api/insertNoteClient"
 
 //ユーザーが登録した質問を取得
-const createConditionPage = () => {
+const CreateConditionPage = () => {
     const router =useRouter()
     const {control,handleSubmit,reset,register} =useForm()
     const [questions,setQuestions] = useState<Question[]>([])
@@ -116,4 +116,4 @@ const createConditionPage = () => {
     )
 }
 
-export default createConditionPage
+export default CreateConditionPage
