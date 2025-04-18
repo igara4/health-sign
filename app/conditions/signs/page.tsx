@@ -32,7 +32,7 @@ const editSignsPage = () => {
         fetchQuestions()
     },[])
 
-    const onSubmit = async (data:any) =>{
+    const onSubmit = async (data:Record<string,boolean>) =>{
         const {data:userData} = await supabase.auth.getUser()
         if(!userData?.user) return
 
