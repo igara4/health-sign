@@ -11,10 +11,15 @@ import { useRouter } from "next/navigation"
 import { categoryLabel, categoryOrder, groupedQuestionsByCategory, Question } from "@/lib/utils/groupQuestions"
 import { insertNote } from "@/lib/api/insertNoteClient"
 
+
+type FormData = {
+    note: string
+} & Record<string, boolean>
+
 //ユーザーが登録した質問を取得
 const CreateConditionPage = () => {
     const router =useRouter()
-    const {control,handleSubmit,reset,register} =useForm()
+    const {control,handleSubmit,reset,register} =useForm<FormData>()
     const [questions,setQuestions] = useState<Question[]>([])
     const supabase = createClient()
 
@@ -30,27 +35,19 @@ const CreateConditionPage = () => {
     },[])
 
 
-    const onSubmit = async(data:any) =>{
+    const onSubmit = async(data:FormData) =>{
         const{data:userData} = await supabase.auth.getUser()
         if(!userData?.user) return
 
         const userId = userData.user.id
-        const note = data.note
+
+        const {note, ...answers} = data
 
         const logId = await insertNote(userId,note)
-        //デバッグ用
-        console.log("🧪 typeof logId:", typeof logId, "logId:", logId);
         if(!logId){
             alert("ノートの保存に失敗しました")
             return
         }
-
-        //  note以外の回答データをresponsesに保存
-        const answers ={...data}
-        delete answers.note
-
-        //デバッグ用
-        console.log("🧪 answers before sending:", answers);
 
         //チェックされた質問IDを取得
         const success = await saveUserResponses(userId,logId,answers)
