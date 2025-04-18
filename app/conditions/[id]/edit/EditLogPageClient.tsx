@@ -55,7 +55,7 @@ const EditLogPageClient = ({logId}:Props) => {
     },[logId,reset,supabase])
 
     //更新処理
-    const onSubmit = async(data:any)=>{
+    const onSubmit = async(data:Record<string,boolean>)=>{
         const {data:userData} = await supabase.auth.getUser()
         if(!userData?.user)return
 
