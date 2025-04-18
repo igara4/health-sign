@@ -1,6 +1,7 @@
 "use server"
 
 import { createClient } from "@/utils/supabase/server"
+import { Question } from "../utils/groupQuestions"
 
 
 //全ユーザーが使用できる質問を取得(サイン編集画面用)
@@ -18,6 +19,10 @@ export const getAllQuestions =async()=>{
 }
 
 //ユーザーが選んだ質問だけ取得(記録画面用)
+type SelectedQuestionRow ={
+    question:Question|Question[]
+}
+
 export const getUserSelectedQuestions =async(userId:string)=>{
     const supabase = await createClient()
 
@@ -30,8 +35,10 @@ export const getUserSelectedQuestions =async(userId:string)=>{
         console.error("選択済みサインの取得に失敗しました",error.message)
         return[]
     }
-
-    return data.map((row:any)=>row.question)
+    
+    return (data ||[]).map((row:SelectedQuestionRow)=>{
+        const question =Array.isArray(row.question)? row.question[0]:row.question
+        return question})
 }
 
 //サインを選んで保存する
