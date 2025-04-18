@@ -1,4 +1,5 @@
 import { deleteLog } from "@/app/actions/deleteLog"
+import { Response } from "@/lib/types/response"
 import { formatToJST } from "@/lib/utils"
 import { createClient } from "@/utils/supabase/server"
 
@@ -17,10 +18,15 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
         .eq("id",id)
         .single()
         
-    const { data: responses } = await supabase
+    const { data: rawData } = await supabase
         .from("responses")
         .select("question_id,answer,created_at,question:question_id(text,category)")
-        .eq("log_id", id) as {data:any[]}
+        .eq("log_id", id) 
+    
+    const responses : Response[] = (rawData ?? []).map((res)=>({
+        ...res,
+        question:Array.isArray(res.question)?res.question[0]:res.question
+    }))
 
         const scoreMap: Record<string, number> = {
             good: 2,
