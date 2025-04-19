@@ -46,7 +46,7 @@ const EditLogPageClient = ({logId}:Props) => {
         setInitialAnswers(initialData)
         reset(initialData)
 
-        const fetchedNote = await getNoteByLogId(userId)
+        const fetchedNote = await getNoteByLogId(logId)
         setNote(fetchedNote)
         }
 

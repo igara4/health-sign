@@ -1,13 +1,13 @@
 import { createClient } from "@/utils/supabase/client"
 
 //ノートを取得する
-export const getNoteByLogId = async(userId:string)=>{
+export const getNoteByLogId = async(logId:string)=>{
     const supabase = await createClient()
 
     const {data,error} = await supabase
         .from("logs")
         .select("note")
-        .eq("user_id",userId)
+        .eq("id",logId)
         .limit(1)
         .maybeSingle()
 
