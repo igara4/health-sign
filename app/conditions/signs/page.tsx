@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-const editSignsPage = () => {
+const EditSignsPage = () => {
   const router = useRouter();
   const { control, handleSubmit, reset } = useForm();
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -122,4 +122,4 @@ const editSignsPage = () => {
   );
 };
 
-export default editSignsPage;
+export default EditSignsPage;
