@@ -1,8 +1,7 @@
-import Password from "@/components/auth/Password"
-
+import Password from "@/components/auth/Password";
 
 const RestPasswordConfirmPage = () => {
-    return <Password />
-}
+  return <Password />;
+};
 
-export default RestPasswordConfirmPage
+export default RestPasswordConfirmPage;

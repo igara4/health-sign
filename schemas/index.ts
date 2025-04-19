@@ -1,39 +1,42 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const SignupSchema = z.object({
-    name: z.string().min(1, {
-        message: "お名前を入力してください",
-    }),
-    email: z.string().email({
-        message: "メールアドレスを入力してください",
-    }),
-    password: z.string().min(8, {
-        message: "英数字8文字以上で入力してください",
-    }),
-})
+  name: z.string().min(1, {
+    message: "お名前を入力してください",
+  }),
+  email: z.string().email({
+    message: "メールアドレスを入力してください",
+  }),
+  password: z.string().min(8, {
+    message: "英数字8文字以上で入力してください",
+  }),
+});
 
-export const LoginSchema= z.object({
-    email: z.string().email({
-        message: "メールアドレスを入力してください",
-    }),
-    password: z.string().min(8, {
-        message: "英数字8文字以上で入力してください",
-    }),
-})
+export const LoginSchema = z.object({
+  email: z.string().email({
+    message: "メールアドレスを入力してください",
+  }),
+  password: z.string().min(8, {
+    message: "英数字8文字以上で入力してください",
+  }),
+});
 
 export const ResetPasswordSchema = z.object({
-    email: z.string().email({
-        message: "メールアドレスを入力してください",
-    }),
-})
+  email: z.string().email({
+    message: "メールアドレスを入力してください",
+  }),
+});
 
-export const PasswordSchema = z.object({
-    password: z.string().min(8, { 
-        message: "英数字8文字以上で入力してください" }),
-    confirmation: z.string().min(8, { 
-        message: "英数字8文字以上で入力してください" }),
-    })
-    .refine((data) => data.password === data.confirmation, {
-        message: "新しいパスワードと確認用パスワードが一致しません。",
-        path: ["confirmation"], // エラーメッセージが適用されるフィールド
-    })
+export const PasswordSchema = z
+  .object({
+    password: z.string().min(8, {
+      message: "英数字8文字以上で入力してください",
+    }),
+    confirmation: z.string().min(8, {
+      message: "英数字8文字以上で入力してください",
+    }),
+  })
+  .refine((data) => data.password === data.confirmation, {
+    message: "新しいパスワードと確認用パスワードが一致しません。",
+    path: ["confirmation"], // エラーメッセージが適用されるフィールド
+  });
