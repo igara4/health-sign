@@ -44,7 +44,7 @@ const CreateConditionPage = () => {
     };
 
     fetchQuestions();
-  }, []);
+  }, [supabase.auth]);
 
   const onSubmit = async (data: FormData) => {
     const { data: userData } = await supabase.auth.getUser();

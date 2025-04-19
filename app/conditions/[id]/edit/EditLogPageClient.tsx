@@ -63,7 +63,7 @@ const EditLogPageClient = ({ logId }: Props) => {
     };
 
     fetchData();
-  }, [logId, reset, supabase]);
+  }, [logId, reset, supabase.auth]);
 
   const onSubmit = async (data: Record<string, boolean>) => {
     const { data: userData } = await supabase.auth.getUser();

@@ -47,7 +47,7 @@ const EditSignsPage = () => {
     };
 
     fetchQuestions();
-  }, []);
+  }, [supabase.auth]);
 
   const onSubmit = async (data: Record<string, boolean>) => {
     const { data: userData } = await supabase.auth.getUser();
