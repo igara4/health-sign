@@ -80,7 +80,7 @@ export const getUserDailyLogs = async (userId: string) => {
       };
     })
     .sort(
-      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime(),
+      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
     );
 
   return structuredClone(result);
