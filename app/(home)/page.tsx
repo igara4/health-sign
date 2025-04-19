@@ -13,7 +13,7 @@ export default async function Home() {
   if (!user) {
     return <div>ログインが必要です</div>;
   }
-  //server actionでグラフようスコアデータ取得
+  //グラフ用スコアデータ取得
   const scores = await fetchUserScores(user.id);
 
   //日ごとのサイン＋スコアのログ
@@ -23,7 +23,6 @@ export default async function Home() {
     <div className="max-w-xl mx-auto mt-10">
       <h2 className="text-xl font-bold text-center">最近の体調</h2>
 
-      {/*グラフ表示*/}
       <ChartClient scores={scores} />
 
       <div>

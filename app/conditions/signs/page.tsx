@@ -26,7 +26,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-//ユーザーが登録した質問を取得
 const editSignsPage = () => {
   const router = useRouter();
   const { control, handleSubmit, reset } = useForm();
@@ -40,7 +39,7 @@ const editSignsPage = () => {
       if (!userData?.user) return;
       const userQuestions = await getAllQuestions();
       const selectedQuestions = await getUserSelectedQuestions(
-        userData.user.id,
+        userData.user.id
       );
       const selectedIds = selectedQuestions.map((q) => q.id);
       setQuestions(userQuestions);

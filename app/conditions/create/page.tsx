@@ -29,7 +29,6 @@ type FormData = {
   note: string;
 } & Record<string, boolean>;
 
-//ユーザーが登録した質問を取得
 const CreateConditionPage = () => {
   const router = useRouter();
   const { control, handleSubmit, reset, register } = useForm<FormData>();
@@ -61,7 +60,6 @@ const CreateConditionPage = () => {
       return;
     }
 
-    //チェックされた質問IDを取得
     const success = await saveUserResponses(userId, logId, answers);
     if (!success) {
       alert("データを保存に失敗しました");

@@ -31,12 +31,11 @@ const EditLogPageClient = ({ logId }: Props) => {
   const { control, handleSubmit, reset } = useForm();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [initialAnswers, setInitialAnswers] = useState<Record<string, boolean>>(
-    {},
+    {}
   );
   const [note, setNote] = useState("");
   const supabase = createClient();
 
-  //質問&過去回答を取得
   useEffect(() => {
     const fetchData = async () => {
       const { data: userData } = await supabase.auth.getUser();
@@ -66,7 +65,6 @@ const EditLogPageClient = ({ logId }: Props) => {
     fetchData();
   }, [logId, reset, supabase]);
 
-  //更新処理
   const onSubmit = async (data: Record<string, boolean>) => {
     const { data: userData } = await supabase.auth.getUser();
     if (!userData?.user) return;
@@ -74,7 +72,6 @@ const EditLogPageClient = ({ logId }: Props) => {
     const now = new Date();
     const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
-    //元のresponsesを削除
     await supabase.from("responses").delete().eq("log_id", logId);
 
     //チェックされた回答をinsert

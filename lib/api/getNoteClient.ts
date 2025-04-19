@@ -1,6 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
 
-//ノートを取得する
 export const getNoteByLogId = async (logId: string) => {
   const supabase = await createClient();
 

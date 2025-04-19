@@ -4,7 +4,6 @@ export type Question = {
   category: "good" | "warning" | "bad";
 };
 
-//カテゴリごとに質問をグループ化
 export const groupedQuestionsByCategory = (questions: Question[]) => {
   return questions.reduce(
     (acc, q) => {
@@ -12,7 +11,7 @@ export const groupedQuestionsByCategory = (questions: Question[]) => {
       acc[q.category].push(q);
       return acc;
     },
-    {} as Record<string, Question[]>,
+    {} as Record<string, Question[]>
   );
 };
 

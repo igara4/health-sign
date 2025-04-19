@@ -3,7 +3,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { Question } from "../utils/groupQuestions";
 
-//全ユーザーが使用できる質問を取得(サイン編集画面用)
 export const getAllQuestions = async () => {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -17,7 +16,6 @@ export const getAllQuestions = async () => {
   return data || [];
 };
 
-//ユーザーが選んだ質問だけ取得(記録画面用)
 type SelectedQuestionRow = {
   question: Question | Question[];
 };
@@ -43,13 +41,11 @@ export const getUserSelectedQuestions = async (userId: string) => {
   });
 };
 
-//サインを選んで保存する
 export const saveUserSelectedSigns = async (
   userId: string,
-  selectedQuestionIds: string[],
+  selectedQuestionIds: string[]
 ) => {
   const supabase = await createClient();
-  //既存の質問をいったん削除
   await supabase.from("user_selected_questions").delete().eq("user_id", userId);
 
   const inserts = selectedQuestionIds.map((qid) => ({
@@ -63,11 +59,10 @@ export const saveUserSelectedSigns = async (
   return !error;
 };
 
-//ユーザーの回答を保存する
 export const saveUserResponses = async (
   userId: string,
   logId: string,
-  responses: Record<string, boolean>,
+  responses: Record<string, boolean>
 ) => {
   const supabase = await createClient();
   const now = new Date();

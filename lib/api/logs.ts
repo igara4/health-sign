@@ -4,7 +4,6 @@ import { formatToJST } from "../utils";
 export const getUserDailyLogs = async (userId: string) => {
   const supabase = await createClient();
 
-  //回答一覧(responses)取得
   const { data: responses, error: resError } = await supabase
     .from("responses")
     .select("id,question_id,answer,created_at,log_id")
@@ -15,7 +14,6 @@ export const getUserDailyLogs = async (userId: string) => {
     console.error("回答取得エラー", resError?.message);
     return [];
   }
-  //質問一覧(questions)取得
   const { data: questions, error: qError } = await supabase
     .from("questions")
     .select("id,text,category")
@@ -35,7 +33,6 @@ export const getUserDailyLogs = async (userId: string) => {
     console.error("ノート取得エラー", logError?.message);
   }
 
-  //スコア定義※getDailyScoreにもあるからリファクタしたい
   const scoreMap: Record<string, number> = {
     good: 2,
     warning: -1,
