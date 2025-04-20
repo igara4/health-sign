@@ -22,14 +22,12 @@ import { SignupSchema } from "@/schemas";
 import FormError from "../FormError";
 import { signup } from "@/app/actions/auth";
 
-//アカウント登録
 const Signup = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
-  //フォームの状態
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -39,7 +37,6 @@ const Signup = () => {
     },
   });
 
-  //送信
   const onSubmit = async (values: z.infer<typeof SignupSchema>) => {
     setError("");
 

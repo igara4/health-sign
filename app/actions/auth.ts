@@ -39,13 +39,11 @@ export const signup = async (value: z.infer<typeof SignupSchema>) => {
     }
 
     //プロフィールの名前を更新
-    //updateではなくupsertが必要かも？？一旦保留
     const { error: updateError } = await supabase
       .from("profiles")
       .update({ name: value.name })
       .eq("id", data.user.id);
 
-    //エラーチェック
     if (updateError) {
       return { error: updateError.message };
     }
@@ -55,7 +53,6 @@ export const signup = async (value: z.infer<typeof SignupSchema>) => {
   }
 };
 
-//ログイン
 export const login = async (value: z.infer<typeof LoginSchema>) => {
   try {
     const supabase = await createClient();
@@ -73,9 +70,8 @@ export const login = async (value: z.infer<typeof LoginSchema>) => {
   }
 };
 
-//パスワード再設定
 export const resetPassword = async (
-  value: z.infer<typeof ResetPasswordSchema>,
+  value: z.infer<typeof ResetPasswordSchema>
 ) => {
   try {
     const supabase = await createClient();
@@ -93,7 +89,6 @@ export const resetPassword = async (
   }
 };
 
-//パスワード設定
 export const setPassword = async (value: z.infer<typeof PasswordSchema>) => {
   try {
     const supabase = await createClient();
