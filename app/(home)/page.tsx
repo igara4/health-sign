@@ -27,7 +27,7 @@ export default async function Home() {
 
       <div>
         {logs.length === 0 ? (
-          <p>体調記録がありません</p>
+          <p>体調記録がありません。サインを編集後、体調を記録してください。</p>
         ) : (
           logs.map((log) => (
             <DailyLogCard
