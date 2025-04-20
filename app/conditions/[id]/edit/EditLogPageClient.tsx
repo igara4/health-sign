@@ -77,13 +77,16 @@ const EditLogPageClient = ({ logId }: Props) => {
     //チェックされた回答をinsert
     const inserts = Object.entries(data)
       .filter(([_, answer]) => answer === true)
-      .map(([question_id]) => ({
-        user_id: userData.user.id,
-        question_id,
-        answer: true,
-        log_id: logId,
-        created_at: jst.toISOString(),
-      }));
+      .map(([question_id, _]) => {
+        void _;
+        return {
+          user_id: userData.user.id,
+          question_id,
+          answer: true,
+          log_id: logId,
+          created_at: jst.toISOString(),
+        };
+      });
 
     if (inserts.length > 0) {
       const { error } = await supabase.from("responses").insert(inserts);

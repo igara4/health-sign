@@ -70,13 +70,16 @@ export const saveUserResponses = async (
 
   const inserts = Object.entries(responses)
     .filter(([_, answer]) => answer === true)
-    .map(([question_id]) => ({
-      user_id: userId,
-      question_id,
-      answer: true,
-      log_id: logId,
-      created_at: jst.toISOString(),
-    }));
+    .map(([question_id, _]) => {
+      void _;
+      return {
+        user_id: userId,
+        question_id,
+        answer: true,
+        log_id: logId,
+        created_at: jst.toISOString(),
+      };
+    });
 
   if (inserts.length === 0) {
     console.warn("チェックされたサインがありません");
