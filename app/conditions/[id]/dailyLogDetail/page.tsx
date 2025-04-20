@@ -2,6 +2,7 @@ import { deleteLog } from "@/app/actions/deleteLog";
 import { Response } from "@/lib/types/response";
 import { formatToJST } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -74,12 +75,12 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
         <div className="ml-5">{logData?.note || "ノートはありません"}</div>
       </div>
       <div className="flex justify-end mt-6 space-x-4">
-        <a
+        <Link
           href={`/conditions/${id}/edit`}
           className="px-4 py-2  bg-blue-600 text-sm text-white rounded hover:bg-blue-700 transition"
         >
           編集
-        </a>
+        </Link>
         <form action={deleteLog.bind(null, id)}>
           <button
             type="submit"
@@ -89,12 +90,12 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
           </button>
         </form>
       </div>
-      <a
+      <Link
         href="/"
         className="px-4 py-2 bg-gray-300 text-sm text-gray-800 rounded hover:bg-gray-400 transition"
       >
         戻る
-      </a>
+      </Link>
     </div>
   );
 }
