@@ -12,7 +12,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   getAllQuestions,
   getUserSelectedQuestions,
-  saveUserResponses,
   saveUserSelectedSigns,
 } from "@/lib/api/condition";
 import {
