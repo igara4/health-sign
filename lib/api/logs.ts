@@ -16,8 +16,7 @@ export const getUserDailyLogs = async (userId: string) => {
   }
   const { data: questions, error: qError } = await supabase
     .from("questions")
-    .select("id,text,category")
-    .eq("user_id", userId);
+    .select("id,text,category");
 
   if (qError || !questions) {
     console.error("質問取得エラー", qError?.message);
