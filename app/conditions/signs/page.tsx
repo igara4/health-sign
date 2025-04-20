@@ -56,10 +56,7 @@ const EditSignsPage = () => {
 
     const newSelectedIds = Object.entries(data)
       .filter(([_, value]) => value === true)
-      .map(([id, _]) => {
-        void _;
-        return id;
-      });
+      .map(([id, _]) => id);
 
     const success = await saveUserSelectedSigns(userId, newSelectedIds);
     if (!success) {
