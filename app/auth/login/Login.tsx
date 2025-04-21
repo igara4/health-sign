@@ -139,7 +139,7 @@ const Login = () => {
         </div>
 
         <div>
-          <Link href="/signup" className="text-sm text-primary font-bold">
+          <Link href="/auth/signup" className="text-sm text-primary font-bold">
             アカウント登録はこちら{" "}
             <ChevronRight className="w-4 h-4 inline align-text-bottom" />
           </Link>
