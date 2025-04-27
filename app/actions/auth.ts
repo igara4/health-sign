@@ -19,9 +19,6 @@ export const signup = async (value: z.infer<typeof SignupSchema>) => {
       password: value.password,
       options: {
         emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/signup/verify`,
-        data: {
-          name: value.name,
-        },
       },
     });
 
@@ -36,16 +33,6 @@ export const signup = async (value: z.infer<typeof SignupSchema>) => {
       }
     } else {
       return { error: signupError?.message };
-    }
-
-    //プロフィールの名前を更新
-    const { error: updateError } = await supabase
-      .from("profiles")
-      .update({ name: value.name })
-      .eq("id", data.user.id);
-
-    if (updateError) {
-      return { error: updateError.message };
     }
   } catch (err) {
     console.error(err);
