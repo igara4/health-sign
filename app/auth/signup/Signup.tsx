@@ -42,6 +42,7 @@ const Signup = () => {
 
     startTransition(async () => {
       try {
+        localStorage.setItem("name", values.name);
         const res = await signup({
           ...values,
         });
