@@ -18,29 +18,45 @@ const SignupVerifyPage = () => {
       return;
     }
 
-    supabase.auth.exchangeCodeForSession(code).then(async ({ data, error }) => {
-      if (error) {
-        console.log("セッションエラー", error);
-        return;
-      }
+    const handleSessionAndProfile = async () => {
+      try {
+        const { error: exchangeError } =
+          await supabase.auth.exchangeCodeForSession(code);
 
-      const { data: userData } = await supabase.auth.getUser();
-      const name = localStorage.getItem("name");
-
-      if (userData?.user && name) {
-        const { error: upsertError } = await supabase.from("profiles").upsert({
-          id: userData.user.id,
-          name,
-        });
-
-        if (upsertError) {
-          console.error("プロフィール登録エラー", upsertError);
-        } else {
-          console.log("プロフィール登録成功");
-          localStorage.removeItem("name");
+        if (exchangeError) {
+          console.log("セッションエラー", exchangeError.message);
+          return;
         }
+
+        const { data: userData, error: userError } =
+          await supabase.auth.getUser();
+        if (userError) {
+          console.error("ユーザー取得エラー", userError.message);
+          return;
+        }
+
+        const name = localStorage.getItem("name");
+
+        if (userData?.user && name) {
+          const { error: upsertError } = await supabase
+            .from("profiles")
+            .upsert({
+              id: userData.user.id,
+              name,
+            });
+
+          if (upsertError) {
+            console.error("プロフィール登録エラー", upsertError);
+          } else {
+            console.log("プロフィール登録成功");
+            localStorage.removeItem("name");
+          }
+        }
+      } catch (err) {
+        console.error("予期せぬエラー", err);
       }
-    });
+    };
+    handleSessionAndProfile();
   }, [searchParams]);
 
   return (
