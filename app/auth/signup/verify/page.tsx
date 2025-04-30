@@ -1,63 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const SignupVerifyPage = () => {
-  const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
-    const supabase = createClient();
-    const code = searchParams.get("code");
-
-    if (!code) {
-      console.error("認証コードがURLにありません");
-      return;
-    }
-
-    const handleSessionAndProfile = async () => {
-      try {
-        const { error: exchangeError } =
-          await supabase.auth.exchangeCodeForSession(code);
-
-        if (exchangeError) {
-          console.log("セッションエラー", exchangeError.message);
-          return;
-        }
-
-        const { data: userData, error: userError } =
-          await supabase.auth.getUser();
-        if (userError) {
-          console.error("ユーザー取得エラー", userError.message);
-          return;
-        }
-
-        const name = localStorage.getItem("name");
-
-        if (userData?.user && name) {
-          const { error: upsertError } = await supabase
-            .from("profiles")
-            .upsert({
-              id: userData.user.id,
-              name,
-            });
-
-          if (upsertError) {
-            console.error("プロフィール登録エラー", upsertError);
-          } else {
-            console.log("プロフィール登録成功");
-            localStorage.removeItem("name");
-          }
-        }
-      } catch (err) {
-        console.error("予期せぬエラー", err);
-      }
-    };
-    handleSessionAndProfile();
-  }, [searchParams]);
+    router.refresh();
+  }, [router]);
 
   return (
     <div className="w-[500px] bg-white p-5 rounded-xl border">

@@ -34,6 +34,17 @@ export const signup = async (value: z.infer<typeof SignupSchema>) => {
     } else {
       return { error: signupError?.message };
     }
+
+    // プロフィールの名前を更新
+    const { error: updateError } = await supabase
+      .from("profiles")
+      .update({ name: value.name })
+      .eq("id", data.user.id);
+
+    // エラーチェック
+    if (updateError) {
+      return { error: updateError.message };
+    }
   } catch (err) {
     console.error(err);
     return { error: "エラーが発生しました" };
