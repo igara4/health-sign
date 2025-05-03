@@ -48,7 +48,7 @@ export const getUserDailyLogs = async (userId: string) => {
     }
   > = {};
   for (const res of responses) {
-    if (!res.answer) continue;
+    if (!res.answer || !res.created_at) continue;
 
     const groupKey = res.log_id; //グルーピングに使う
     const datetime = formatToJST(res.created_at); //UTCを実時間表示用に変換
