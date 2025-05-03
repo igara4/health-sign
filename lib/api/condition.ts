@@ -66,7 +66,6 @@ export const saveUserResponses = async (
 ) => {
   const supabase = await createClient();
   const now = new Date();
-  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
   const inserts = Object.entries(responses)
     .filter(([_, answer]) => answer === true)
@@ -75,7 +74,7 @@ export const saveUserResponses = async (
       question_id,
       answer: true,
       log_id: logId,
-      created_at: jst.toISOString(),
+      created_at: now.toISOString(),
     }));
 
   if (inserts.length === 0) {
