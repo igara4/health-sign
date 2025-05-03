@@ -29,7 +29,9 @@ const getUserDailyScores = async (userId: string) => {
   const dailyScores: Record<string, number> = {};
 
   responses.forEach((response) => {
-    const date = response.created_at.split("T")[0]; //YYYY-MM-DDのみ取得
+    const dateObj = new Date(response.created_at);
+    const jstDate = new Date(dateObj.getTime() + 9 * 60 * 60 * 1000);
+    const date = jstDate.toISOString().split("T")[0]; //YYYY-MM-DDのみ取得
     const question = questions.find((q) => q.id === response.question_id);
 
     if (!question) return;
