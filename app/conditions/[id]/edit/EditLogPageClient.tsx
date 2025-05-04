@@ -70,7 +70,6 @@ const EditLogPageClient = ({ logId }: Props) => {
     if (!userData?.user) return;
 
     const now = new Date();
-    const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
     await supabase.from("responses").delete().eq("log_id", logId);
 
@@ -82,7 +81,7 @@ const EditLogPageClient = ({ logId }: Props) => {
         question_id,
         answer: true,
         log_id: logId,
-        created_at: jst.toISOString(),
+        created_at: now.toISOString(),
       }));
 
     if (inserts.length > 0) {
