@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { formatToJST } from "../utils";
 
 const getUserDailyScores = async (userId: string) => {
   const supabase = await createClient();
@@ -29,9 +30,8 @@ const getUserDailyScores = async (userId: string) => {
   const dailyScores: Record<string, number> = {};
 
   responses.forEach((response) => {
-    const dateObj = new Date(response.created_at);
-    const jstDate = new Date(dateObj.getTime() + 9 * 60 * 60 * 1000);
-    const date = jstDate.toISOString().split("T")[0]; //YYYY-MM-DDのみ取得
+    const fullDateStr = formatToJST(response.created_at);
+    const date = fullDateStr.split(" ")[0]; //YYYY-MM-DDのみ取得
     const question = questions.find((q) => q.id === response.question_id);
 
     if (!question) return;
