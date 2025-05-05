@@ -2,24 +2,32 @@
 
 import { Line } from "react-chartjs-2";
 import {
+  ActiveElement,
   CategoryScale,
+  ChartEvent,
   Chart as ChartJS,
+  ChartOptions,
   LinearScale,
   LineElement,
   PointElement,
 } from "chart.js";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 type Props = {
-  scores: { date: string; score: number }[];
+  scores: { id: string; date: string; score: number }[];
 };
 
 const ChartClient: FC<Props> = ({ scores }) => {
+  const router = useRouter();
+
   const sortedScores = [...scores].sort((a, b) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
+
+  const logIdMap = Object.fromEntries(sortedScores.map((s) => [s.date, s.id]));
 
   const labels = sortedScores.map((s) => {
     const date = new Date(s.date);
@@ -42,7 +50,18 @@ const ChartClient: FC<Props> = ({ scores }) => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
+    onClick: (event: ChartEvent, elements: ActiveElement[]) => {
+      if (elements.length === 0) return;
+
+      const index = elements[0].index;
+      const clickedDate = sortedScores[index].date;
+      const logId = logIdMap[clickedDate];
+
+      if (logId) {
+        router.push(`/conditions/${logId}/dailyLogDetail`);
+      }
+    },
     scales: {
       y: {
         ticks: {
