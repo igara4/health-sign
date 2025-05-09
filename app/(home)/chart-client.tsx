@@ -51,6 +51,18 @@ const ChartClient: FC<Props> = ({ scores }) => {
   };
 
   const options: ChartOptions<"line"> = {
+    onHover: (event, elements) => {
+      const target = event.native
+        ? (event.native.target as HTMLCanvasElement)
+        : null;
+      if (!target) return;
+
+      if (elements.length) {
+        target.style.cursor = "pointer";
+      } else {
+        target.style.cursor = "default";
+      }
+    },
     onClick: (event: ChartEvent, elements: ActiveElement[]) => {
       if (elements.length === 0) return;
 
