@@ -20,7 +20,9 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
 
   const { data: rawData } = await supabase
     .from("responses")
-    .select("question_id,answer,created_at,question:question_id(text,category)")
+    .select(
+      "question_id,answer,created_at,log_id,question:question_id(text,category)"
+    )
     .eq("log_id", id);
 
   const responses: Response[] = (rawData ?? []).map((res) => ({
@@ -42,8 +44,12 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
     if (!res.answer) continue;
     if (!res.question) continue;
 
-    signs.push(res.question.text);
-    score += scoreMap[res.question.category] || 0;
+    const question = Array.isArray(res.question)
+      ? res.question[0]
+      : res.question;
+
+    signs.push(question.text);
+    score += scoreMap[question.category] || 0;
     datetime = res.created_at;
 
     if (!datetime) {

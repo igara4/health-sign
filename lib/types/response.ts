@@ -3,8 +3,10 @@ export type Response = {
   answer: boolean;
   created_at: string;
   log_id: string;
-  question: {
-    text: string;
-    category: "good" | "warning" | "bad" | string;
-  };
+  question:
+    | {
+        text: string;
+        category: "good" | "warning" | "bad" | string;
+      }
+    | { text: string; category: "good" | "warning" | "bad" | string }[];
 };
