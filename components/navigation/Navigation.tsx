@@ -2,9 +2,10 @@
 
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { LogOut } from "lucide-react";
+import { Edit2Icon, LineChartIcon, LogOut, PlusCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 type NavigationProps = {
   user: User | null; // ユーザー情報を受け取れるように型定義
@@ -27,20 +28,37 @@ const Navigation = ({ user }: NavigationProps) => {
   return (
     <header className="border-b">
       <div className="mx-auto max-w-screen-lg px-2 py-5">
-        <Link href="/" className="font-bold text-3xl block mb-2">
+        <Link
+          href="/"
+          className="flex items-center gap-2 font-bold text-3xl block mb-2"
+        >
+          <LineChartIcon className="w-6 h-6 text-teal-500" />
           Health Sign
         </Link>
 
         <div className="text-sm font-bold mt-5">
           {user ? (
-            <div className="flex items-center space-x-5">
-              <Link href="/conditions/create">
-                <div>記録する</div>
-              </Link>
-
-              <Link href="/conditions/signs">
-                <div>サインを編集</div>
-              </Link>
+            <div className="flex items-center justify-end space-x-5">
+              <nav className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" asChild>
+                  <Link href="/conditions/signs">
+                    <Edit2Icon className="w-4 h-4 mr-2" />
+                    サインを編集
+                  </Link>
+                </Button>
+                <Button
+                  size="sm"
+                  className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg"
+                >
+                  <Link
+                    href="/conditions/create"
+                    className="flex items-center gap-2"
+                  >
+                    <PlusCircleIcon className="w-4 h-4 mr-2" />
+                    記録する
+                  </Link>
+                </Button>
+              </nav>
 
               <div className="cursor-pointer" onClick={handleLogout}>
                 <LogOut className="h-5 w-5" />
