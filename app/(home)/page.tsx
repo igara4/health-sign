@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { fetchUserScores } from "../actions/scores";
 import ChartClient from "./chart-client";
 import { getUserDailyLogs } from "@/lib/api/logs";
-import DailyLogCard from "./components/DailyLogCard";
+import LogSection from "./components/LogSection";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -24,23 +24,7 @@ export default async function Home() {
       <h2 className="text-xl font-bold text-center">最近の体調</h2>
 
       <ChartClient scores={scores} />
-
-      <div>
-        {logs.length === 0 ? (
-          <p>体調記録がありません。サインを編集後、体調を記録してください。</p>
-        ) : (
-          logs.map((log) => (
-            <DailyLogCard
-              key={log.id}
-              id={log.id}
-              datetime={log.datetime}
-              signs={log.signs}
-              score={log.score}
-              note={log.note}
-            />
-          ))
-        )}
-      </div>
+      <LogSection logs={logs} />
     </div>
   );
 }
