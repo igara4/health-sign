@@ -42,12 +42,14 @@ export default function LogSection({ logs }: Props) {
           />
         ))
       )}
-      <Pagination
-        posts={logs.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <div className="mt-10">
+        <Pagination
+          posts={logs.length}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
     </div>
   );
 }
