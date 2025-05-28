@@ -18,7 +18,7 @@ interface Props {
 
 export default function LogSection({ logs }: Props) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const totalPages = Math.ceil(logs.length / itemsPerPage);
   const paginatedLogs = logs.slice(
