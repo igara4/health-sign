@@ -19,7 +19,7 @@ const Pagination = ({
     <div className="flex justify-center items-center">
       <button
         onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
-        className="px-6 py-2 mr-10 min-w-[150px] rounded-full text-center font-bold"
+        className="px-6 py-2 rounded-full text-center font-bold"
       >
         ←
       </button>
@@ -44,7 +44,7 @@ const Pagination = ({
         onClick={() =>
           setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
         }
-        className="px-6 py-2 ml-10 min-w-[150px] rounded-full text-center font-bold"
+        className="px-6 py-2 rounded-full text-center font-bold"
       >
         →
       </button>
