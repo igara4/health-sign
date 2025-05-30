@@ -48,7 +48,8 @@ const Navigation = ({ user }: NavigationProps) => {
                 </Button>
                 <Button
                   size="sm"
-                  className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg"
+                  asChild
+                  className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded"
                 >
                   <Link
                     href="/conditions/create"
