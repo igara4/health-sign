@@ -31,7 +31,7 @@ const Pagination = ({
             onClick={() => setCurrentPage(num)}
             className={`w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 ${
               currentPage === num
-                ? "bg-teal-500 text-white"
+                ? "bg-black text-white"
                 : "bg-white text-black"
             }`}
           >
