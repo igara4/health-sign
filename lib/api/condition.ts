@@ -16,6 +16,18 @@ export const getAllQuestions = async () => {
   return data || [];
 };
 
+export const getDefaultQuestions = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("default_signs")
+    .select("id,text,category");
+
+  if (error) {
+    console.error("デフォルトサイン(質問)の取得に失敗しました", error.message);
+    return [];
+  }
+};
+
 type SelectedQuestionRow = {
   question: Question | Question[];
 };
