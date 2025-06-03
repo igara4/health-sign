@@ -46,6 +46,10 @@ export const getUserSelectedQuestions = async (userId: string) => {
     return [];
   }
 
+  if (!data || data.length === 0) {
+    return await getDefaultQuestions();
+  }
+
   return (data || []).map((row: SelectedQuestionRow) => {
     const question = Array.isArray(row.question)
       ? row.question[0]
