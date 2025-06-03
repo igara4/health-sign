@@ -26,6 +26,7 @@ export const getDefaultQuestions = async () => {
     console.error("デフォルトサイン(質問)の取得に失敗しました", error.message);
     return [];
   }
+  return data || [];
 };
 
 type SelectedQuestionRow = {
