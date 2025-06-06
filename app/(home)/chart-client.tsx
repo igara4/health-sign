@@ -89,9 +89,9 @@ const ChartClient: FC<Props> = ({ scores }) => {
         type: "time",
         time: {
           unit: "day",
-          tooltipFormat: "MM/dd HH:mm",
+          tooltipFormat: "MM/dd",
           displayFormats: {
-            minute: "MM/dd HH:mm",
+            day: "MM/dd",
           },
         },
         title: {
