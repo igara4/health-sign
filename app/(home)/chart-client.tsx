@@ -37,13 +37,6 @@ const ChartClient: FC<Props> = ({ scores }) => {
 
   const logIdMap = Object.fromEntries(sortedScores.map((s) => [s.date, s.id]));
 
-  const labels = sortedScores.map((s) => {
-    const date = new Date(s.date);
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${month}/${day}`;
-  });
-
   const data = {
     datasets: [
       {
