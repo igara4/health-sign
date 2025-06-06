@@ -16,13 +16,7 @@ import {
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  TimeScale
-);
+ChartJS.register(LineElement, LinearScale, PointElement, TimeScale);
 
 type Props = {
   scores: { id: string; date: string; score: number }[];
