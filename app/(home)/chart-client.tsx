@@ -1,5 +1,6 @@
 "use client";
 
+import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
 import {
   ActiveElement,
@@ -10,11 +11,18 @@ import {
   LinearScale,
   LineElement,
   PointElement,
+  TimeScale,
 } from "chart.js";
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  TimeScale
+);
 
 type Props = {
   scores: { id: string; date: string; score: number }[];
@@ -37,11 +45,13 @@ const ChartClient: FC<Props> = ({ scores }) => {
   });
 
   const data = {
-    labels,
     datasets: [
       {
         label: "スコア",
-        data: sortedScores.map((s) => s.score),
+        data: sortedScores.map((s) => ({
+          x: s.date,
+          y: s.score,
+        })),
         borderColor: "rgba(75,192,192,1)",
         backgroundColor: "rgba(75,192,192,0.2)",
         tension: 0.3,
@@ -75,6 +85,20 @@ const ChartClient: FC<Props> = ({ scores }) => {
       }
     },
     scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "day",
+          tooltipFormat: "MM/dd HH:mm",
+          displayFormats: {
+            minute: "MM/dd HH:mm",
+          },
+        },
+        title: {
+          display: true,
+          text: "日時",
+        },
+      },
       y: {
         ticks: {
           stepSize: 1,
