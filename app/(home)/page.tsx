@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { fetchUserScores } from "../actions/scores";
-import ChartClient from "./chart-client";
 import { getUserDailyLogs } from "@/lib/api/logs";
 import LogSection from "./components/LogSection";
+import ChartClientWrapper from "./ChartClientWrapper";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -23,7 +23,7 @@ export default async function Home() {
     <div className="max-w-xl mx-auto mt-10">
       <h2 className="text-xl font-bold text-center">最近の体調</h2>
 
-      <ChartClient scores={scores} />
+      <ChartClientWrapper scores={scores} />
       <LogSection logs={logs} />
     </div>
   );

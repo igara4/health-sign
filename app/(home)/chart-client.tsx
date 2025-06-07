@@ -4,7 +4,6 @@ import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
 import {
   ActiveElement,
-  CategoryScale,
   ChartEvent,
   Chart as ChartJS,
   ChartOptions,
@@ -70,6 +69,20 @@ const ChartClient: FC<Props> = ({ scores }) => {
       if (logId) {
         router.push(`/conditions/${logId}/dailyLogDetail`);
       }
+    },
+    plugins: {
+      zoom: {
+        zoom: {
+          wheel: { enabled: true },
+          pinch: { enabled: true },
+          mode: "x",
+        },
+        pan: {
+          enabled: true,
+          mode: "x",
+          threshold: 5,
+        },
+      },
     },
     scales: {
       x: {
