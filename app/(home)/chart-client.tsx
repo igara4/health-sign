@@ -94,10 +94,6 @@ const ChartClient: FC<Props> = ({ scores }) => {
             day: "MM/dd",
           },
         },
-        title: {
-          display: true,
-          text: "日時",
-        },
       },
       y: {
         ticks: {
