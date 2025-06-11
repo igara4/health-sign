@@ -46,6 +46,9 @@ const ChartClient: FC<Props> = ({ scores }) => {
     ],
   };
 
+  const minDate = new Date(sortedScores[0].date);
+  const maxDate = new Date(sortedScores[sortedScores.length - 1].date);
+
   const options: ChartOptions<"line"> = {
     onHover: (event, elements) => {
       const target = event.native
@@ -81,6 +84,13 @@ const ChartClient: FC<Props> = ({ scores }) => {
           enabled: true,
           mode: "x",
           threshold: 5,
+        },
+        limits: {
+          x: {
+            min: minDate.getTime(),
+            max: maxDate.getTime(),
+            minRange: 1000 * 60 * 60 * 24 * 7, //最小7日文までのズームを設定
+          },
         },
       },
     },
