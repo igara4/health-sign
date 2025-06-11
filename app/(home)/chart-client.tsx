@@ -105,6 +105,11 @@ const ChartClient: FC<Props> = ({ scores }) => {
     scales: {
       x: {
         type: "time",
+        ...(minDate &&
+          maxDate && {
+            min: minDate.toISOString(),
+            max: maxDate.toISOString(),
+          }),
         time: {
           unit: "day",
           tooltipFormat: "MM/dd",
