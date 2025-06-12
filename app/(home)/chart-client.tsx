@@ -46,13 +46,19 @@ const ChartClient: FC<Props> = ({ scores }) => {
     ],
   };
 
-  let minDate: Date | undefined = undefined;
-  let maxDate: Date | undefined = undefined;
+  const currentDate = new Date();
+  const twoWeekAgo = new Date();
+  twoWeekAgo.setDate(currentDate.getDate() - 14); //直近２週間のデータを初期表示
 
-  if (sortedScores.length > 0) {
-    minDate = new Date(sortedScores[0].date);
-    maxDate = new Date(sortedScores[sortedScores.length - 1].date);
-  }
+  const initialMinDate = twoWeekAgo;
+  const initialMaxDate = currentDate;
+
+  const fullMinDate =
+    sortedScores.length > 0 ? new Date(sortedScores[0].date) : undefined;
+  const fullMaxDate =
+    sortedScores.length > 0
+      ? new Date(sortedScores[sortedScores.length - 1].date)
+      : undefined;
 
   const options: ChartOptions<"line"> = {
     onHover: (event, elements) => {
@@ -91,11 +97,11 @@ const ChartClient: FC<Props> = ({ scores }) => {
           threshold: 5,
         },
         limits:
-          minDate && maxDate
+          fullMinDate && fullMaxDate
             ? {
                 x: {
-                  min: minDate.getTime(),
-                  max: maxDate.getTime(),
+                  min: fullMinDate.getTime(),
+                  max: fullMaxDate.getTime(),
                   minRange: 1000 * 60 * 60 * 24 * 7, //最小7日文までのズームを設定
                 },
               }
@@ -105,10 +111,10 @@ const ChartClient: FC<Props> = ({ scores }) => {
     scales: {
       x: {
         type: "time",
-        ...(minDate &&
-          maxDate && {
-            min: minDate.toISOString(),
-            max: maxDate.toISOString(),
+        ...(initialMinDate &&
+          initialMaxDate && {
+            min: initialMinDate.toISOString(),
+            max: initialMaxDate.toISOString(),
           }),
         time: {
           unit: "day",
