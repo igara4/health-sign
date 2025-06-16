@@ -87,12 +87,12 @@ const ChartClient: FC<Props> = ({ scores }) => {
     plugins: {
       zoom: {
         zoom: {
-          wheel: { enabled: true },
-          pinch: { enabled: true },
+          wheel: { enabled: sortedScores.length > 0 },
+          pinch: { enabled: sortedScores.length > 0 },
           mode: "x",
         },
         pan: {
-          enabled: true,
+          enabled: sortedScores.length > 0,
           mode: "x",
           threshold: 5,
         },
