@@ -58,6 +58,51 @@ export const getUserSelectedQuestions = async (userId: string) => {
   });
 };
 
+export const initDefaultQuestions = async (userId: string) => {
+  const supabase = await createClient();
+
+  const { data: defaults, error: defaultError } = await supabase
+    .from("default_signs")
+    .select("text");
+
+  if (defaultError || !defaults) {
+    console.error("デフォルト質問の取得失敗", defaultError?.message);
+    return [];
+  }
+
+  const selectedQuestions: string[] = [];
+
+  for (const { text } of defaults) {
+    const { data, error } = await supabase
+      .from("questions")
+      .select("id")
+      .eq("text", text)
+      .maybeSingle();
+
+    if (data?.id) {
+      selectedQuestions.push(data.id);
+    } else {
+      console.warn(`質問が見つかりません:${text}`);
+    }
+  }
+
+  const inserts = selectedQuestions.map((question_id) => ({
+    user_id: userId,
+    question_id,
+  }));
+
+  const { error: insertError } = await supabase
+    .from("user_selected_questions")
+    .insert(inserts);
+
+  if (insertError) {
+    console.error("デフォルト質問の登録に失敗", insertError.message);
+    return [];
+  }
+
+  return selectedQuestions;
+};
+
 export const saveUserSelectedSigns = async (
   userId: string,
   selectedQuestionIds: string[]
