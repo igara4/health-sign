@@ -33,7 +33,9 @@ type SelectedQuestionRow = {
   question: Question | Question[];
 };
 
-export const getUserSelectedQuestions = async (userId: string) => {
+export const getUserSelectedQuestions = async (
+  userId: string
+): Promise<Question[]> => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
@@ -47,7 +49,8 @@ export const getUserSelectedQuestions = async (userId: string) => {
   }
 
   if (!data || data.length === 0) {
-    return await getDefaultQuestions();
+    await initDefaultQuestions(userId);
+    return await getUserSelectedQuestions(userId);
   }
 
   return (data || []).map((row: SelectedQuestionRow) => {
