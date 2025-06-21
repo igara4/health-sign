@@ -19,16 +19,16 @@
 ## 主な機能
 
 ✅ 認証機能
-![Image](https://github.com/user-attachments/assets/4a916042-4f94-4ec9-89ab-7e499690bcab)
+![Image](https://github.com/user-attachments/assets/a00f9f8c-f990-42b1-82ba-1e1b6d0a33c0)
 
 ✅ 日々の体調を記録
-![Image](https://github.com/user-attachments/assets/105cd4a9-1b00-4cec-bec9-9fb6b5a1a472)
+![Image](https://github.com/user-attachments/assets/57c13ab2-52de-4691-9b91-60836f74c88f)
 
 ✅ 自身にあった体調のサインにカスタマイズ
-![Image](https://github.com/user-attachments/assets/e147c02f-ccd7-4cc5-8254-1fe9b1c2bce3)
+![Image](https://github.com/user-attachments/assets/4090d759-ab5d-4b8f-bdd2-1b231d34e8fb)
 
 ✅ 日々の体調サインの記録をスコア化しグラフとして可視化  
-![Image](https://github.com/user-attachments/assets/081b6b8d-0995-48dc-884c-2dc08f3a0ab0)
+![Image](https://github.com/user-attachments/assets/46d62c1b-d437-456c-af11-f5735c97e3ce)
 
 ## 今後の実装予定
 
