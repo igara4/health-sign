@@ -16,7 +16,7 @@ const Pagination = ({
   const totalPages = Math.max(1, Math.ceil(posts / itemsPerPage));
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center w-full overflow-x-auto">
       <button
         onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
         className="px-6 py-2 rounded-full text-center font-bold"
@@ -24,7 +24,7 @@ const Pagination = ({
         ←
       </button>
 
-      <div className="flex space-x-4 items-center justify-center">
+      <div className="flex space-x-4 items-center justify-center overflow-x-auto whitespace-nowrap px-2">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
           <button
             key={num}
