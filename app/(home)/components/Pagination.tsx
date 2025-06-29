@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 interface Props {
   posts: number;
   itemsPerPage?: number;
@@ -14,6 +16,18 @@ const Pagination = ({
   setCurrentPage,
 }: Props) => {
   const totalPages = Math.max(1, Math.ceil(posts / itemsPerPage));
+  const [visiblePages, setVisiblePages] = useState(7);
+
+  useEffect(() => {
+    const updateVisiblePages = () => {
+      if (window.innerWidth < 640) {
+        setVisiblePages(5);
+      }
+    };
+    updateVisiblePages();
+    window.addEventListener("resize", updateVisiblePages);
+    return () => window.removeEventListener("resize", updateVisiblePages);
+  }, []);
 
   return (
     <div className="flex justify-center items-center w-full overflow-x-auto">
