@@ -29,6 +29,19 @@ const Pagination = ({
     return () => window.removeEventListener("resize", updateVisiblePages);
   }, []);
 
+  const startPage = Math.max(
+    1,
+    Math.min(
+      currentPage - Math.floor(visiblePages / 2),
+      totalPages - visiblePages + 1
+    )
+  );
+  const endPage = Math.min(totalPages, startPage + visiblePages - 1);
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i
+  );
+
   return (
     <div className="flex justify-center items-center w-full overflow-x-auto">
       <button
@@ -38,21 +51,17 @@ const Pagination = ({
         ←
       </button>
 
-      <div className="flex space-x-4 items-center justify-center overflow-x-auto whitespace-nowrap px-2">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-          <button
-            key={num}
-            onClick={() => setCurrentPage(num)}
-            className={`h-10 aspect-square leading-none flex items-center justify-center rounded-full border border-gray-400 ${
-              currentPage === num
-                ? "bg-black text-white"
-                : "bg-white text-black"
-            }`}
-          >
-            {num}
-          </button>
-        ))}
-      </div>
+      {pageNumbers.map((num) => (
+        <button
+          key={num}
+          onClick={() => setCurrentPage(num)}
+          className={`h-10 w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
+            currentPage === num ? "bg-black text-white" : "bg-white text-black"
+          }`}
+        >
+          {num}
+        </button>
+      ))}
 
       <button
         onClick={() =>
