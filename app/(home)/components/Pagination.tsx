@@ -51,17 +51,21 @@ const Pagination = ({
         ←
       </button>
 
-      {pageNumbers.map((num) => (
-        <button
-          key={num}
-          onClick={() => setCurrentPage(num)}
-          className={`h-10 w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
-            currentPage === num ? "bg-black text-white" : "bg-white text-black"
-          }`}
-        >
-          {num}
-        </button>
-      ))}
+      <div className="flex space-x-4 items-center justify-center">
+        {pageNumbers.map((num) => (
+          <button
+            key={num}
+            onClick={() => setCurrentPage(num)}
+            className={`h-10 w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
+              currentPage === num
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            }`}
+          >
+            {num}
+          </button>
+        ))}
+      </div>
 
       <button
         onClick={() =>
