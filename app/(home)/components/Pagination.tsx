@@ -56,7 +56,7 @@ const Pagination = ({
           <button
             key={num}
             onClick={() => setCurrentPage(num)}
-            className={`h-8 w-8 sm:h-10 sm:w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
+            className={`h-9 w-9 sm:h-10 sm:w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
               currentPage === num
                 ? "bg-black text-white"
                 : "bg-white text-black"
