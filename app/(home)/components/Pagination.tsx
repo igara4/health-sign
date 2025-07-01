@@ -46,17 +46,17 @@ const Pagination = ({
     <div className="flex justify-center items-center w-full">
       <button
         onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
-        className="px-6 py-2 rounded-full text-center font-bold"
+        className="px-4 sm:px-6 py-2 rounded-full text-center font-bold"
       >
         ←
       </button>
 
-      <div className="flex space-x-4 items-center justify-center">
+      <div className="flex items-center justify-center space-x-1 sm:space-x-2">
         {pageNumbers.map((num) => (
           <button
             key={num}
             onClick={() => setCurrentPage(num)}
-            className={`h-10 w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
+            className={`h-8 w-8 sm:h-10 sm:w-10 leading-none flex items-center justify-center rounded-full border border-gray-400 ${
               currentPage === num
                 ? "bg-black text-white"
                 : "bg-white text-black"
@@ -71,7 +71,7 @@ const Pagination = ({
         onClick={() =>
           setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
         }
-        className="px-6 py-2 rounded-full text-center font-bold"
+        className="px-4 sm:px-6 py-2 rounded-full text-center font-bold"
       >
         →
       </button>
