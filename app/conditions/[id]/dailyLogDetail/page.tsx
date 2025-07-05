@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -94,28 +95,30 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
           </div>
         </CardContent>
 
-        <div className="flex justify-end mt-6 space-x-4">
-          <Link
-            href={`/conditions/${id}/edit`}
-            className="px-4 py-2  bg-blue-600 text-sm text-white rounded hover:bg-blue-700 transition"
-          >
-            編集
-          </Link>
-          <form action={deleteLog.bind(null, id)}>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-red-600 text-sm text-white rounded hover:bg-red-700 transition"
+        <CardFooter className="flex justify-between flex wrap gap-2">
+          <div className="flex gap-2">
+            <Link
+              href={`/conditions/${id}/edit`}
+              className="px-4 py-2  bg-blue-600 text-sm text-white rounded hover:bg-blue-700"
             >
-              削除
-            </button>
-          </form>
-        </div>
-        <Link
-          href="/"
-          className="px-4 py-2 bg-gray-300 text-sm text-gray-800 rounded hover:bg-gray-400 transition"
-        >
-          戻る
-        </Link>
+              編集
+            </Link>
+            <form action={deleteLog.bind(null, id)}>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-red-600 text-sm text-white rounded hover:bg-red-700"
+              >
+                削除
+              </button>
+            </form>
+          </div>
+          <Link
+            href="/"
+            className="px-4 py-2 bg-gray-300 text-sm text-gray-800 rounded hover:bg-gray-400"
+          >
+            戻る
+          </Link>
+        </CardFooter>
       </Card>
     </div>
   );
