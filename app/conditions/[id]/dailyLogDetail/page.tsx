@@ -80,15 +80,17 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
             {signs.length > 0 ? signs.join(" / ") : "なし"}
           </p>
 
-          <div className="mt-1 text-sm">
+          <p>
             <span className="font-bold">📈 スコア:</span>{" "}
             <span className={score < 0 ? "text-red-600" : "text-green-600"}>
               {score}
             </span>
-          </div>
-          <div className="mt-4 text-sm">
-            <span className="font-bold">📒 ノート:</span>
-            <div className="ml-5">{logData?.note || "ノートはありません"}</div>
+          </p>
+          <div>
+            <p className="font-bold">📒 ノート:</p>
+            <div className="mt-1 bg-gray-50 rounded-md p-3">
+              {logData?.note || "ノートはありません"}
+            </div>
           </div>
         </CardContent>
 
