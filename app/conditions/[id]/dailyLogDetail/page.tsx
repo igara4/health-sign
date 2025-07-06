@@ -106,7 +106,7 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
             <form action={deleteLog.bind(null, id)}>
               <button
                 type="submit"
-                className="px-4 py-2 bg-red-600 text-sm text-white rounded hover:bg-red-700"
+                className="px-4 py-2 bg-white text-sm text-red-600 border border-red-600 rounded hover:bg-red-400 hover:text-white"
               >
                 削除
               </button>
