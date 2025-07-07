@@ -99,14 +99,14 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
           <div className="flex gap-2">
             <Link
               href={`/conditions/${id}/edit`}
-              className="px-4 py-2  bg-blue-600 text-sm text-white rounded hover:bg-blue-700"
+              className="px-4 py-2  bg-teal-500 text-sm text-white rounded hover:bg-teal-600"
             >
               編集
             </Link>
             <form action={deleteLog.bind(null, id)}>
               <button
                 type="submit"
-                className="px-4 py-2 bg-white text-sm text-red-600 border border-red-600 rounded hover:bg-red-400 hover:text-white"
+                className="px-4 py-2 bg-white text-sm text-red-500 border border-red-500 rounded hover:bg-red-400 hover:text-white"
               >
                 削除
               </button>
