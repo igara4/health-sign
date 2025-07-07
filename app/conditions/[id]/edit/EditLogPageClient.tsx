@@ -166,7 +166,10 @@ const EditLogPageClient = ({ logId }: Props) => {
             />
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full bg-teal-500 text-white font-semibold hover bg-teal-600"
+          >
             更新する
           </Button>
         </form>
