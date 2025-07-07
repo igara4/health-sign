@@ -119,7 +119,10 @@ const CreateConditionPage = () => {
               rows={4}
               placeholder="今日の出来事や体調について書いてください"
             />
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full bg-teal-500 text-white font-semibold hover:bg-teal-600"
+            >
               記録
             </Button>
           </form>
