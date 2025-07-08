@@ -38,11 +38,10 @@ const Navigation = ({ user }: NavigationProps) => {
 
         <div className="text-sm font-bold mt-5">
           {user ? (
-            <div className="flex items-center justify-end space-x-5">
+            <div className="flex items-center justify-end space-x-2">
               <nav className="flex items-center gap-2">
                 <Button
                   variant="ghost"
-                  size="sm"
                   asChild
                   className="hover:bg-gray-200 rounded"
                 >
@@ -52,7 +51,6 @@ const Navigation = ({ user }: NavigationProps) => {
                   </Link>
                 </Button>
                 <Button
-                  size="sm"
                   asChild
                   className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded"
                 >
