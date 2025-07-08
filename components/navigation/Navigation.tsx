@@ -66,7 +66,10 @@ const Navigation = ({ user }: NavigationProps) => {
                 </Button>
               </nav>
 
-              <div className="cursor-pointer" onClick={handleLogout}>
+              <div
+                className="cursor-pointer hover:bg-gray-200 px-2 py-2"
+                onClick={handleLogout}
+              >
                 <LogOut className="h-5 w-5" />
               </div>
             </div>
