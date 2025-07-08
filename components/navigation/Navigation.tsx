@@ -40,7 +40,12 @@ const Navigation = ({ user }: NavigationProps) => {
           {user ? (
             <div className="flex items-center justify-end space-x-5">
               <nav className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  asChild
+                  className="hover:bg-gray-200 rounded"
+                >
                   <Link href="/conditions/signs">
                     <Edit2Icon className="w-4 h-4 mr-2" />
                     サインを編集
