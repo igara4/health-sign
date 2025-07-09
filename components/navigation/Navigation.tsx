@@ -46,7 +46,7 @@ const Navigation = ({ user }: NavigationProps) => {
                   className="hover:bg-gray-200 rounded"
                 >
                   <Link href="/conditions/signs">
-                    <Edit2Icon className="w-4 h-4 mr-2" />
+                    <Edit2Icon />
                     サインを編集
                   </Link>
                 </Button>
@@ -58,7 +58,7 @@ const Navigation = ({ user }: NavigationProps) => {
                     href="/conditions/create"
                     className="flex items-center gap-2"
                   >
-                    <PlusCircleIcon className="w-4 h-4 mr-2" />
+                    <PlusCircleIcon />
                     記録する
                   </Link>
                 </Button>
