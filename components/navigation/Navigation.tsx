@@ -30,9 +30,9 @@ const Navigation = ({ user }: NavigationProps) => {
       <div className="mx-auto max-w-screen-lg px-2 pt-4 pb-2">
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold text-3xl block mb-10"
+          className="flex items-center gap-2 font-bold text-4xl block mb-10"
         >
-          <LineChartIcon className="w-6 h-6 text-teal-500" />
+          <LineChartIcon className="w-8 h-8 text-teal-500" />
           Health Sign
         </Link>
 
