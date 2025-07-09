@@ -43,7 +43,7 @@ const Navigation = ({ user }: NavigationProps) => {
                 <Button
                   variant="ghost"
                   asChild
-                  className="hover:bg-gray-200 rounded"
+                  className="hover:bg-gray-200 px-2 rounded"
                 >
                   <Link href="/conditions/signs">
                     <Edit2Icon />
@@ -52,7 +52,7 @@ const Navigation = ({ user }: NavigationProps) => {
                 </Button>
                 <Button
                   asChild
-                  className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded"
+                  className="bg-teal-500 hover:bg-teal-600 text-white px-2 rounded"
                 >
                   <Link
                     href="/conditions/create"
