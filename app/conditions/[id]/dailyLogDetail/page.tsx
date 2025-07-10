@@ -134,10 +134,11 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
                 <form action={deleteLog.bind(null, id)}>
                   <AlertDialogFooter>
                     <AlertDialogCancel>キャンセル</AlertDialogCancel>
-                    <AlertDialogAction asChild>
-                      <button className="px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700">
-                        削除する
-                      </button>
+                    <AlertDialogAction
+                      type="submit"
+                      className="px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                    >
+                      削除する
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </form>
