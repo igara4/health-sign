@@ -1,5 +1,16 @@
 import { deleteLog } from "@/app/actions/deleteLog";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -103,14 +114,35 @@ export default async function DailyLogDetailPage({ params }: PageProps) {
             >
               編集
             </Link>
-            <form action={deleteLog.bind(null, id)}>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-white text-sm text-red-500 border border-red-500 rounded hover:bg-red-400 hover:text-white"
-              >
-                削除
-              </button>
-            </form>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-white text-sm text-red-500 border border-red-500 rounded hover:bg-red-400 hover:text-white"
+                >
+                  削除
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>本当に削除しますか？</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    ※一度削除すると元に戻せませんのでご注意ください。
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <form action={deleteLog.bind(null, id)}>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>キャンセル</AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <button className="px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700">
+                        削除する
+                      </button>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </form>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
           <Link
             href="/"
