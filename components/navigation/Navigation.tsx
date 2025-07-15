@@ -6,6 +6,17 @@ import { Edit2Icon, LineChartIcon, LogOut, PlusCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 type NavigationProps = {
   user: User | null; // ユーザー情報を受け取れるように型定義
@@ -17,10 +28,6 @@ const Navigation = ({ user }: NavigationProps) => {
   const supabase = createClient();
 
   const handleLogout = async () => {
-    if (!window.confirm("ログアウトしますが、よろしいですか？")) {
-      return;
-    }
-
     await supabase.auth.signOut();
     router.push("/auth/login");
     router.refresh();
@@ -64,12 +71,27 @@ const Navigation = ({ user }: NavigationProps) => {
                 </Button>
               </nav>
 
-              <div
-                className="cursor-pointer hover:bg-gray-200 px-2 py-2"
-                onClick={handleLogout}
-              >
-                <LogOut className="h-5 w-5" />
-              </div>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-gray-200 px-2 py-2"
+                  >
+                    <LogOut className="h-5 w-5" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>ログアウトしますか？</AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>キャンセル</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleLogout}>
+                      ログアウト
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           ) : (
             <div className="flex items-center space-x-5">
