@@ -24,6 +24,7 @@ import {
   Question,
 } from "@/lib/utils/groupQuestions";
 import { insertNote } from "@/lib/api/insertNoteClient";
+import toast from "react-hot-toast";
 
 type FormData = {
   note: string;
@@ -56,17 +57,17 @@ const CreateConditionPage = () => {
 
     const logId = await insertNote(userId, note);
     if (!logId) {
-      alert("ノートの保存に失敗しました");
+      toast.error("ノートの保存に失敗しました");
       return;
     }
 
     const success = await saveUserResponses(userId, logId, answers);
     if (!success) {
-      alert("データを保存に失敗しました");
+      toast.error("データを保存に失敗しました");
       return;
     }
 
-    alert("データを保存しました");
+    toast.success("データを保存しました");
     reset();
     router.push("/");
   };
