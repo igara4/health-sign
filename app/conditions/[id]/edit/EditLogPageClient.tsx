@@ -21,6 +21,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type Props = {
   logId: string;
@@ -98,12 +99,12 @@ const EditLogPageClient = ({ logId }: Props) => {
       .eq("id", logId);
 
     if (noteError) {
-      alert("ノートの更新に失敗しました");
+      toast.error("ノートの更新に失敗しました");
       console.error("ノート更新エラー", noteError.message);
       return;
     }
 
-    alert("更新しました");
+    toast.success("更新しました");
     router.push(`/conditions/${logId}/dailyLogDetail`);
   };
 
