@@ -24,6 +24,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const EditSignsPage = () => {
   const router = useRouter();
@@ -60,11 +61,11 @@ const EditSignsPage = () => {
 
     const success = await saveUserSelectedSigns(userId, newSelectedIds);
     if (!success) {
-      alert("データの保存に失敗しました");
+      toast.error("データの保存に失敗しました");
       return;
     }
 
-    alert("データを保存しました");
+    toast.success("データを保存しました");
     reset();
     router.push("/");
   };
