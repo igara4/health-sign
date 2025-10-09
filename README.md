@@ -28,7 +28,7 @@
 ![Image](https://github.com/user-attachments/assets/4090d759-ab5d-4b8f-bdd2-1b231d34e8fb)
 
 ✅ 日々の体調サインの記録をスコア化しグラフとして可視化  
-![Image](https://github.com/user-attachments/assets/46d62c1b-d437-456c-af11-f5735c97e3ce)
+![Image](https://github.com/user-attachments/assets/cf8d3501-4cca-4b32-8a06-17613be576b6)
 
 ## 今後の実装予定
 
