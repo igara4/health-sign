@@ -34,7 +34,7 @@ Health Signは、日々の体調や心身のサインを記録・可視化する
 ![Image](https://github.com/user-attachments/assets/a00f9f8c-f990-42b1-82ba-1e1b6d0a33c0)
 
 ✅ 日々の体調を記録
-![Image](https://github.com/user-attachments/assets/57c13ab2-52de-4691-9b91-60836f74c88f)
+![Image](https://github.com/user-attachments/assets/eac436c0-de14-4901-b8c7-03690103c658)
 
 ✅ 自身にあった体調のサインにカスタマイズ
 ![Image](https://github.com/user-attachments/assets/4090d759-ab5d-4b8f-bdd2-1b231d34e8fb)
