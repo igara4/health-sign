@@ -29,7 +29,12 @@ type Props = {
 
 const EditLogPageClient = ({ logId }: Props) => {
   const router = useRouter();
-  const { control, handleSubmit, reset } = useForm();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [initialAnswers, setInitialAnswers] = useState<Record<string, boolean>>(
     {}
@@ -170,8 +175,9 @@ const EditLogPageClient = ({ logId }: Props) => {
           <Button
             type="submit"
             className="w-full bg-teal-500 text-white font-semibold hover:bg-teal-600"
+            disabled={isSubmitting}
           >
-            更新する
+            {isSubmitting ? "更新中..." : "更新する"}
           </Button>
         </form>
       </CardContent>
