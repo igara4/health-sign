@@ -18,6 +18,7 @@ import {
   Question,
 } from "@/lib/utils/groupQuestions";
 import { createClient } from "@/utils/supabase/client";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -177,7 +178,14 @@ const EditLogPageClient = ({ logId }: Props) => {
             className="w-full bg-teal-500 text-white font-semibold hover:bg-teal-600"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "更新中..." : "更新する"}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                更新中...
+              </>
+            ) : (
+              "更新する"
+            )}
           </Button>
         </form>
       </CardContent>
