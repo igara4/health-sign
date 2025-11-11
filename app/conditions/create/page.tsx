@@ -135,7 +135,7 @@ const CreateConditionPage = () => {
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  "記録中…"
+                  記録中…
                 </>
               ) : (
                 "記録"
