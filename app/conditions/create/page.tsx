@@ -25,6 +25,7 @@ import {
 } from "@/lib/utils/groupQuestions";
 import { insertNote } from "@/lib/api/insertNoteClient";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 type FormData = {
   note: string;
@@ -32,7 +33,13 @@ type FormData = {
 
 const CreateConditionPage = () => {
   const router = useRouter();
-  const { control, handleSubmit, reset, register } = useForm<FormData>();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    register,
+    formState: { isSubmitting },
+  } = useForm<FormData>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const supabase = createClient();
 
@@ -123,8 +130,16 @@ const CreateConditionPage = () => {
             <Button
               type="submit"
               className="w-full bg-teal-500 text-white font-semibold hover:bg-teal-600"
+              disabled={isSubmitting}
             >
-              記録
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  "記録中…"
+                </>
+              ) : (
+                "記録"
+              )}
             </Button>
           </form>
         </CardContent>
