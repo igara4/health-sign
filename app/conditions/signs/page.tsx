@@ -21,6 +21,7 @@ import {
   Question,
 } from "@/lib/utils/groupQuestions";
 import { createClient } from "@/utils/supabase/client";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -28,7 +29,12 @@ import toast from "react-hot-toast";
 
 const EditSignsPage = () => {
   const router = useRouter();
-  const { control, handleSubmit, reset } = useForm();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [initialSelectedIds, setInitialSelectedIds] = useState<string[]>([]);
   const supabase = createClient();
@@ -114,9 +120,17 @@ const EditSignsPage = () => {
             ))}
             <Button
               type="submit"
+              disabled={isSubmitting}
               className="w-full bg-teal-500 text-white font-semibold hover:bg-teal-600"
             >
-              登録
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  登録中...
+                </>
+              ) : (
+                "登録"
+              )}
             </Button>
           </form>
         </CardContent>
